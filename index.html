@@ -702,11 +702,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --soft-2: #ebe4da;
   --ink: #2a2420;
   --ink-2: #3f3631;
-  --ink-3: #7a6e66;
+  --ink-3: #6b6058;
   --rule: #ddd3c8;
   --pin: #a4442a;
   --black: #8e3a22;
-  --menu-idle: #a39a92;
+  --menu-idle: #776b63;
   --map-out: #ede8e1;
   --map-land: #f8f5f0;
   --map-water: #b7c4c9;
@@ -808,16 +808,16 @@ body.doc-view::before { content: ""; position: fixed; inset: 0 0 auto; height: v
   display: grid; align-content: space-between; padding: 7px 8px;
   font-family: var(--font-display); color: var(--ink-3);
 }
-.thumb b { font-weight: 400; font-size: 11px; letter-spacing: 0.04em; }
+.thumb b { font-weight: 400; font-size: 12px; letter-spacing: 0.04em; }
 .thumb span { font-size: 20px; color: var(--ink-2); line-height: 1; justify-self: end; }
 .card h3 { font-size: 15px; font-weight: 500; line-height: 1.4; margin: 0; color: var(--ink); }
 .card .alt { font-size: 12px; color: var(--ink-3); }
 .card .addr { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
 .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.tag { font-size: 11px; padding: 1px 7px; color: var(--ink-2); background: var(--soft); border-radius: 4px; }
+.tag { font-size: 12px; padding: 1px 7px; color: var(--ink-2); background: var(--soft); border-radius: 4px; }
 .empty { padding: 28px 16px; color: var(--ink-3); }
 .empty button { margin-top: 10px; border: 0; background: var(--soft-2); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
-.sample-note { padding: 9px 18px; font-size: 11px; color: var(--ink-3); border-top: 1px solid var(--line); background: var(--soft); margin: 0; }
+.sample-note { padding: 9px 18px; font-size: 12px; color: var(--ink-3); border-top: 1px solid var(--line); background: var(--soft); margin: 0; }
 
 /* ================= 마커 · 클러스터 · 카드 팝업 ================= */
 .pin { width: 26px; height: 34px; transform-origin: 50% 100%; transition: transform .15s ease; }
@@ -913,7 +913,7 @@ td .alt { display: block; color: var(--ink-3); }
 .src b { font-weight: 500; }
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin: 28px 0 40px; }
 .cols > div { background: var(--soft); border-radius: var(--radius); padding: 16px 18px; font-size: 13px; }
-.cols h3 { font-size: 14px; font-weight: 500; margin: 0 0 6px; }
+.cols h2 { font-size: 14px; font-weight: 500; margin: 0 0 6px; }
 .cols ul { margin: 0; padding-left: 16px; }
 .links { list-style: none; padding: 0; margin: 16px 0 0; }
 .links li { border-bottom: 1px solid var(--line); }
@@ -926,7 +926,7 @@ td .alt { display: block; color: var(--ink-3); }
 footer.site {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
   padding-block: 32px 28px; margin-top: 24px; border-top: 1px solid var(--line);
-  font-size: 11px; line-height: 1.7; color: var(--ink-3);
+  font-size: 12px; line-height: 1.7; color: var(--ink-3);
 }
 
 /* ================= 상세 창 ================= */
@@ -946,7 +946,7 @@ footer.site {
 .d-box > a { background: var(--black); color: var(--white); display: grid; place-items: center; text-decoration: none; font-size: 12px; font-weight: 500; }
 .d-box > a:hover { opacity: 0.88; }
 .d-text { font-size: 12.5px; line-height: 1.85; max-width: 46ch; }
-.d-credit { font-size: 11px; margin-top: 18px; }
+.d-credit { font-size: 12px; margin-top: 18px; }
 .d-photos { display: grid; gap: 20px; align-content: start; }
 .photo {
   aspect-ratio: 4 / 3; max-width: 100%; border-radius: var(--radius);
@@ -954,8 +954,8 @@ footer.site {
   font-size: 12px; color: var(--ink-3); padding: 16px;
 }
 .photo.wide { aspect-ratio: 16 / 9; }
-.cap { font-size: 10px; color: var(--ink-3); margin-top: 4px; }
-.d-tags { font-size: 11px; margin: 36px 0 18px; display: grid; gap: 2px; }
+.cap { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+.d-tags { font-size: 12px; margin: 36px 0 18px; display: grid; gap: 2px; }
 .d-tags a { margin-right: 4px; }
 .d-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
 .d-map { position: relative; aspect-ratio: 1 / 0.65; max-width: 100%; border-radius: var(--radius); overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
@@ -990,7 +990,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .intro-map .im-gu { fill: var(--map-land); stroke: var(--white); stroke-width: 1.5; }
 .intro-map .im-river { fill: none; stroke: var(--map-water); stroke-width: 2.5; stroke-linecap: round; }
 .intro-map .im-pin { fill: var(--pin); }
-.intro-map .im-label { font: 400 11px var(--font-display); fill: var(--ink-3); letter-spacing: 0.08em; }
+.intro-map .im-label { font: 400 12px var(--font-display); fill: var(--ink-3); letter-spacing: 0.08em; }
 .intro-map .im-cap {
   position: absolute; left: 12px; bottom: 12px; font-size: 12px; font-weight: 500; background: var(--white);
   border-radius: 999px; padding: 5px 12px; color: var(--ink); box-shadow: var(--shadow);
@@ -1014,7 +1014,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .vis .pin { width: 22px; height: 29px; }
 .mini-card { background: var(--white); box-shadow: var(--shadow); border-radius: 4px; padding: 6px 10px; font-size: 12px; line-height: 1.45; display: grid; }
 .mini-card span { color: var(--ink-3); }
-.mini-box { box-shadow: var(--shadow); border-radius: 8px; background: var(--white); font-size: 11px; padding: 8px 10px; line-height: 1.6; }
+.mini-box { box-shadow: var(--shadow); border-radius: 8px; background: var(--white); font-size: 12px; padding: 8px 10px; line-height: 1.6; }
 .vis svg.route-mini { width: 150px; height: 56px; }
 .route-mini circle { fill: var(--black); }
 .route-mini path { stroke: var(--ink); }
@@ -1194,9 +1194,9 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
       <p>대전건축여지도는 공공데이터와 지도로 이 건축물들의 위치와 이야기를 보여 주고, 권역별로 직접 걸어 볼 수 있는 동선을 제안합니다.</p>
     </div>
     <div class="cols">
-      <div><h3>이런 분께</h3><ul><li>대전 근현대 건축과 역사에 관심 있는 시민</li><li>대전을 찾는 여행자</li><li>건축역사를 공부하는 학생</li></ul></div>
-      <div><h3>할 수 있는 것</h3><ul><li>지도에서 건축자산 위치 확인</li><li>구 · 시대 · 용도로 골라 보기</li><li>권역별 탐방 동선 따라 걷기</li></ul></div>
-      <div><h3>만드는 원칙</h3><ul><li>회원 기능 없이 누구나 바로 검색</li><li>공공누리 등 개방된 공공 자료만 사용</li><li>모든 자료의 출처 표시</li></ul></div>
+      <div><h2>이런 분께</h2><ul><li>대전 근현대 건축과 역사에 관심 있는 시민</li><li>대전을 찾는 여행자</li><li>건축역사를 공부하는 학생</li></ul></div>
+      <div><h2>할 수 있는 것</h2><ul><li>지도에서 건축자산 위치 확인</li><li>구 · 시대 · 용도로 골라 보기</li><li>권역별 탐방 동선 따라 걷기</li></ul></div>
+      <div><h2>만드는 원칙</h2><ul><li>회원 기능 없이 누구나 바로 검색</li><li>공공누리 등 개방된 공공 자료만 사용</li><li>모든 자료의 출처 표시</li></ul></div>
     </div>
     <h2 class="page-title" style="font-size:20px">데이터 출처</h2>
     <div class="src">
