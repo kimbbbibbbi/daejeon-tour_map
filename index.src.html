@@ -567,11 +567,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 /*DATA*/
 window.DISTRICTS = /*DISTRICTS*/;
 window.RIVERS = /*RIVERS*/;
-// 사진 파일 찾기: jpg → png → webp 순서로 시도하고, 없으면 자리표시를 남긴다.
-window.__img = el => {
-  const ext = ["jpg", "png", "webp"], i = +(el.dataset.i || 0) + 1;
-  if (i < ext.length) { el.dataset.i = i; el.src = el.dataset.base + "." + ext[i]; } else el.remove();
-};
+// 빌드할 때 photos 폴더에 실제로 있던 사진 목록. 없는 사진은 아예 요청하지 않는다.
+window.PHOTOS = /*PHOTOS*/;
 </script>
 <script>
 (() => {
@@ -587,7 +584,8 @@ window.__img = el => {
   const mobile = () => matchMedia("(max-width: 860px)").matches;
   // 사진: photos/<대표 테마>/<id>.jpg, 두 번째는 <id>-2.jpg
   const photoBase = (b, n = 1) => `photos/${b.theme}/${b.id}${n > 1 ? "-" + n : ""}`;
-  const img = (b, n = 1) => `<img class="pimg" src="${photoBase(b, n)}.jpg" data-base="${photoBase(b, n)}" alt="" loading="lazy" onerror="__img(this)">`;
+  const img = (b, n = 1) => { const f = window.PHOTOS[photoBase(b, n)];
+    return f ? `<img class="pimg" src="${f}" alt="" loading="lazy" onerror="this.remove()">` : ""; };
   const thumb = b => `<div class="thumb" style="--c:${col(b)}" aria-hidden="true"><b>${esc(tname(b))}</b><span>${no(b)}</span>${img(b)}</div>`;
   const ttags = b => allThemes(b).map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("");
   const themeCount = k => B.filter(b => allThemes(b).includes(k)).length;
