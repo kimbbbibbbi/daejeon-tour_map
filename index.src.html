@@ -1,4 +1,4 @@
-<title>대전건축여지도</title>
+<title>대전관광여지도</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,9 +11,10 @@
 <style>
 /* Layout: 지도·동선 = 전체 화면 지도 위에 떠 있는 상단 바 + 좌측 패널(모바일은 바텀시트).
    목록·소개·링크 = 오픈하우스서울식 가운데 정렬 960px 프레임 + 가는 선으로 나눈 3단 메뉴.
-   상세 = 어느 화면에서든 위에 덮이는 전체 화면 창. 흑백 단일 테마. */
+   상세 = 어느 화면에서든 위에 덮이는 전체 화면 창.
+   크림 바탕 + 테라코타 포인트, 테마마다 다른 마커 색(--c). */
 :root {
-  /* 근대 벽돌 테마: 옛 충남도청 · 철도관사 같은 벽돌 · 타일 건축의 색 */
+  /* 따뜻한 크림 바탕 + 테라코타(적갈색) 포인트 */
   --white: #fbfaf8;
   --soft: #f4f0ea;
   --soft-2: #ebe4da;
@@ -120,13 +121,15 @@ body.doc-view::before { content: ""; position: fixed; inset: 0 0 auto; height: v
 .card:hover, .card.is-hover { background: var(--soft); }
 .card.is-active { background: var(--soft-2); box-shadow: inset 3px 0 0 var(--black); }
 .thumb {
-  width: 84px; height: 84px; max-width: 100%;
-  background: var(--soft-2); border-radius: 8px;
+  width: 84px; height: 84px; max-width: 100%; position: relative; overflow: hidden;
+  background: color-mix(in srgb, var(--c, var(--pin)) 13%, var(--soft)); border-radius: 8px;
   display: grid; align-content: space-between; padding: 7px 8px;
   font-family: var(--font-display); color: var(--ink-3);
 }
-.thumb b { font-weight: 400; font-size: 12px; letter-spacing: 0.04em; }
-.thumb span { font-size: 20px; color: var(--ink-2); line-height: 1; justify-self: end; }
+.thumb b { font-weight: 500; font-size: 12px; color: var(--c, var(--pin)); font-family: var(--font-body); }
+.thumb span { font-size: 18px; color: var(--ink-2); line-height: 1; justify-self: end; }
+/* 사진 파일이 있으면 자리표시 위를 덮고, 없으면 onerror 로 지워진다 */
+img.pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .card h3 { font-size: 15px; font-weight: 500; line-height: 1.4; margin: 0; color: var(--ink); }
 .card .alt { font-size: 12px; color: var(--ink-3); }
 .card .addr { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
@@ -139,11 +142,9 @@ body.doc-view::before { content: ""; position: fixed; inset: 0 0 auto; height: v
 /* ================= 마커 · 클러스터 · 카드 팝업 ================= */
 .pin { width: 26px; height: 34px; transform-origin: 50% 100%; transition: transform .15s ease; }
 .pin svg { display: block; width: 100%; height: 100%; }
-.pin path { fill: var(--pin); }
-.pin.is-hover { transform: scale(1.15); }
-.pin.is-hover path { fill: var(--ink-2); }
-.pin.is-active { transform: scale(1.35); }
-.pin.is-active path { fill: var(--black); }
+.pin path { fill: var(--c, var(--pin)); }
+.pin.is-hover { transform: scale(1.2); }
+.pin.is-active { transform: scale(1.4); filter: drop-shadow(0 2px 3px rgba(42, 36, 32, 0.35)); }
 .npin {
   display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
   background: var(--black); color: var(--white); border: 2px solid var(--white);
@@ -232,13 +233,6 @@ td .alt { display: block; color: var(--ink-3); }
 .cols > div { background: var(--soft); border-radius: var(--radius); padding: 16px 18px; font-size: 13px; }
 .cols h2 { font-size: 14px; font-weight: 500; margin: 0 0 6px; }
 .cols ul { margin: 0; padding-left: 16px; }
-.links { list-style: none; padding: 0; margin: 16px 0 0; }
-.links li { border-bottom: 1px solid var(--line); }
-.links a, .links .nolink { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 16px 10px; border-radius: 8px; text-decoration: none; align-items: center; }
-.links a:hover { background: var(--soft); }
-.links b { font-weight: 500; font-size: 15px; }
-.links small { display: block; color: var(--ink-3); font-size: 12px; }
-.links .go { font-family: var(--font-display); color: var(--ink-3); }
 
 footer.site {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
@@ -266,6 +260,7 @@ footer.site {
 .d-credit { font-size: 12px; margin-top: 18px; }
 .d-photos { display: grid; gap: 20px; align-content: start; }
 .photo {
+  position: relative; overflow: hidden;
   aspect-ratio: 4 / 3; max-width: 100%; border-radius: var(--radius);
   background: var(--soft-2); display: grid; place-items: center; text-align: center;
   font-size: 12px; color: var(--ink-3); padding: 16px;
@@ -337,6 +332,38 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .route-mini path { stroke: var(--ink); }
 .tip { margin: 28px 0 0; font-size: 13px; color: var(--ink-3); background: var(--soft); border-radius: 8px; padding: 10px 14px; }
 
+/* ================= 테마 칩 · 카드형 목록 · 가까운 명소 ================= */
+.chip.t { display: inline-flex; align-items: center; gap: 6px; }
+.chip.t .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+.chip.t[aria-pressed="true"] { background: var(--c); color: #fff; }
+.chip.t[aria-pressed="true"] .dot { background: #fff; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ttag { font-size: 12px; padding: 1px 7px; border-radius: 4px; color: var(--c); background: color-mix(in srgb, var(--c) 11%, var(--white)); font-weight: 500; }
+.pgrid { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(214px, 1fr)); gap: 22px 18px; }
+.pcard { display: grid; gap: 10px; text-decoration: none; border-radius: var(--radius); }
+.pcard .ph {
+  position: relative; overflow: hidden; aspect-ratio: 4 / 3; border-radius: var(--radius);
+  background: color-mix(in srgb, var(--c) 13%, var(--soft));
+  display: grid; align-content: space-between; padding: 10px 12px; font-size: 12px; color: var(--c); font-weight: 500;
+  transition: box-shadow .15s ease;
+}
+.pcard .ph span { font-family: var(--font-display); font-size: 22px; color: var(--ink-3); justify-self: end; font-weight: 400; }
+.pcard:hover .ph { box-shadow: var(--shadow-float); }
+.pcard h2 { font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4; }
+.pcard:hover h2 { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.pcard .meta { font-size: 12px; color: var(--ink-3); }
+.pcard .tags { margin-top: 4px; }
+.near { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.near a { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; padding: 8px; border-radius: var(--radius); background: var(--soft); text-decoration: none; }
+.near a:hover { background: var(--soft-2); }
+.near .thumb { width: 64px; height: 64px; padding: 5px 6px; }
+.near .thumb span { font-size: 14px; }
+.near .thumb b { font-size: 11px; white-space: nowrap; letter-spacing: -0.02em; }
+.near b { font-weight: 500; font-size: 14px; display: block; }
+.near small { font-size: 12px; color: var(--ink-3); }
+.d-sub { font-size: 16px; font-weight: 700; margin: 40px 0 0; }
+.intro-map .im-pin.dim { opacity: 0.12; }
+
 /* ================= 반응형 ================= */
 @media (max-width: 860px) {
   .intro-hero { grid-template-columns: 1fr; gap: 24px; padding-top: 8px; }
@@ -372,68 +399,69 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   .hc .thumb { width: 72px; height: 72px; }
   .leaflet-popup-content { width: 270px !important; }
 }
-@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } .pgrid { grid-template-columns: 1fr 1fr; gap: 16px 12px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 
 <!-- ===== 모든 화면 공통 상단 바 (메뉴 위치 고정) ===== -->
 <header class="topbar" id="topbar">
   <div class="topbar-main">
-    <a class="brand" href="#intro">대전건축여지도</a>
+    <a class="brand" href="#intro">대전관광여지도</a>
     <nav class="menu" aria-label="주 메뉴">
-      <a href="#intro" data-nav="intro">홈</a><a href="#map" data-nav="map">지도</a><a href="#list" data-nav="list">목록</a><a href="#routes" data-nav="routes">추천 동선</a><a href="#about" data-nav="about">소개</a><a href="#links" data-nav="links">관련 사이트</a>
+      <a href="#intro" data-nav="intro">홈</a><a href="#map" data-nav="map">지도</a><a href="#list" data-nav="list">명소 목록</a><a href="#routes" data-nav="routes">도보 코스</a><a href="#about" data-nav="about">소개</a>
     </nav>
     <label class="search">
-      <input id="q" type="search" placeholder="건축물 검색" autocomplete="off" aria-label="건축물 이름, 주소 검색">
+      <input id="q" type="search" placeholder="명소 검색" autocomplete="off" aria-label="명소 이름, 주소 검색">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.3"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.3"/></svg>
     </label>
   </div>
   <div class="topbar-filters" id="filters" hidden></div>
 </header>
 
-<!-- ===== 0. 인트로 (첫 화면) ===== -->
+<!-- ===== 0. 홈 ===== -->
 <section class="view frame" id="view-intro" hidden>
   <div class="intro-hero">
     <div>
-      <p class="eyebrow">DAEJEON ARCHITECTURE ATLAS</p>
-      <h1>대전의 건축자산을<br>지도 위에서 만나다</h1>
-      <p class="lede">대전에는 근현대 역사를 담은 우수건축자산 308건이 있습니다. 대전건축여지도는 이 건축물들의 위치와 이야기를 지도 한 장에 모으고, 직접 걸어 볼 수 있는 동선을 제안합니다.</p>
+      <p class="eyebrow">DAEJEON TOUR ATLAS</p>
+      <h1>대전 관광명소를<br>테마별로 한눈에</h1>
+      <p class="lede">문화유산부터 야경 명소까지, 보고 싶은 테마만 골라 지도에 띄워 보세요. 가까운 명소끼리 걸어서 잇는 도보 코스로 하루 나들이 동선도 바로 짤 수 있습니다.</p>
       <div class="cta">
         <a class="btn primary" href="#map">지도 열기 →</a>
-        <a class="btn" href="#routes">추천 동선 보기</a>
-        <a class="btn" href="#list">전체목록</a>
+        <a class="btn" href="#routes">도보 코스 보기</a>
+        <a class="btn" href="#list">명소 목록</a>
       </div>
     </div>
-    <a class="intro-map" href="#map" aria-label="지도 열기">
-      <svg id="intro-svg" role="img" aria-label="대전 5개 구와 건축자산 위치"></svg>
-      <span class="im-cap" id="intro-cap"></span>
-    </a>
+    <div>
+      <a class="intro-map" href="#map" aria-label="선택한 테마로 지도 열기">
+        <svg id="intro-svg" role="img" aria-label="대전 5개 구와 관광명소 위치"></svg>
+        <span class="im-cap" id="intro-cap"></span>
+      </a>
+    </div>
   </div>
-  <div class="stats" id="intro-stats"></div>
   <section class="howto" aria-labelledby="howto-title">
     <h2 id="howto-title">이렇게 둘러보세요</h2>
     <p class="small">처음 오셨다면 아래 순서대로 따라 해 보세요.</p>
     <ol class="steps">
       <li class="step">
         <span class="n">1단계</span>
-        <div class="vis" aria-hidden="true"><div class="pin" data-pin></div><div class="mini-card"><b>옛 충남도청사</b><span>중구 · 1932 · 관공서</span></div></div>
-        <h3>지도에서 찾기</h3>
-        <p>지도 화면의 핀에 마우스를 올리면 미리보기 카드가 뜨고, 누르면 상세보기 버튼이 나옵니다. 숫자 원은 가까이 모인 건축물 묶음이에요. 누르면 확대됩니다.</p>
+        <div class="vis" aria-hidden="true" id="vis-themes"></div>
+        <h3>테마 켜고 끄기</h3>
+        <p>지도 위쪽 테마 버튼을 여러 개 함께 눌러 보세요. 고른 테마의 명소만 지도에 남습니다. 다시 누르면 꺼지고, '전체'를 누르면 처음으로 돌아갑니다.</p>
         <a class="u" href="#map">지도 열기</a>
       </li>
       <li class="step">
         <span class="n">2단계</span>
-        <div class="vis" aria-hidden="true"><span class="chip" aria-pressed="true">중구</span><span class="chip">일제강점기</span><span class="chip">주거</span><span class="chip">Search</span></div>
-        <h3>골라 보기</h3>
-        <p>지도 위쪽의 구 · 시대 · 용도 버튼으로 원하는 건축물만 남길 수 있어요. 검색창에 이름이나 주소를 입력해도 됩니다.</p>
-        <a class="u" href="#map">필터 써 보기</a>
+        <div class="vis" aria-hidden="true" id="vis-pins"></div>
+        <h3>지도에서 찾기</h3>
+        <p>핀 색이 곧 테마입니다. 핀에 마우스를 올리면 미리보기 카드가, 누르면 상세보기 버튼이 나옵니다. 숫자 원은 가까이 모인 명소 묶음이에요.</p>
+        <a class="u" href="#map">지도 열기</a>
       </li>
       <li class="step">
         <span class="n">3단계</span>
-        <div class="vis" aria-hidden="true"><div class="mini-box">일제강점기 · 관공서<br><b>옛 충남도청사</b><br>준공 1932 · 중구 중앙로 101</div></div>
+        <div class="vis" aria-hidden="true"><div class="mini-box">가까운 명소<br><b>테미오래</b> · 걸어서 약 12분<br><b>대흥동 주교좌성당</b> · 약 9분</div></div>
         <h3>자세히 보기</h3>
-        <p>상세 창에서 준공 연도, 주소, 시대, 용도와 건축물 이야기를 볼 수 있어요. 아래 작은 지도로 주변 위치도 확인할 수 있습니다.</p>
-        <a class="u" href="#b01">예시 보기</a>
+        <p>상세 화면에서 사진, 주소, 소개와 함께 걸어서 갈 만한 가까운 명소를 볼 수 있어요.</p>
+        <a class="u" href="#p01">예시 보기</a>
       </li>
       <li class="step">
         <span class="n">4단계</span>
@@ -441,8 +469,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
           <svg class="route-mini" viewBox="0 0 150 56"><path d="M18 40 L60 18 L100 34 L134 14" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/><g font-family="Jost, sans-serif" font-size="11" text-anchor="middle"><circle cx="18" cy="40" r="10"/><text x="18" y="44" fill="#fff">1</text><circle cx="60" cy="18" r="10"/><text x="60" y="22" fill="#fff">2</text><circle cx="100" cy="34" r="10"/><text x="100" y="38" fill="#fff">3</text><circle cx="134" cy="14" r="10"/><text x="134" y="18" fill="#fff">4</text></g></svg>
         </div>
         <h3>따라 걷기</h3>
-        <p>추천 동선 화면에서 원도심 · 둔산 · 동부 세 가지 동선을 고르면, 들를 곳이 번호 순서대로 지도에 이어져 나타나요.</p>
-        <a class="u" href="#routes">동선 보기</a>
+        <p>도보 코스 화면에서 코스를 고르면, 들를 곳이 번호 순서대로 지도 위 경로로 이어져 나타나요.</p>
+        <a class="u" href="#routes">코스 보기</a>
       </li>
     </ol>
     <p class="tip">휴대폰에서는 지도 아래 목록 손잡이를 위로 끌어 올리면 전체 목록이 펼쳐집니다.</p>
@@ -452,21 +480,21 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 
 <!-- ===== 1. 지도 ===== -->
 <section class="view mapview" id="view-map">
-  <div class="map" id="map-main" role="region" aria-label="대전 건축자산 지도"></div>
-  <aside class="panel" id="panel-map" aria-label="건축자산 목록">
+  <div class="map" id="map-main" role="region" aria-label="대전 관광명소 지도"></div>
+  <aside class="panel" id="panel-map" aria-label="명소 목록">
     <button type="button" class="sheet-handle" aria-label="목록 펼치기 / 접기"></button>
-    <div class="panel-head"><h2>건축자산 목록</h2><span class="meta" id="count"></span></div>
+    <div class="panel-head"><h2>명소 목록</h2><span class="meta" id="count"></span></div>
     <ul class="cards" id="cards"></ul>
-    <p class="sample-note">샘플 25건 · 전수조사 308건 데이터 반영 예정</p>
+    <p class="sample-note">샘플 36곳 · 한국관광공사 TourAPI 자료 반영 예정</p>
   </aside>
 </section>
 
-<!-- ===== 4. 추천 동선 ===== -->
+<!-- ===== 4. 도보 코스 ===== -->
 <section class="view mapview" id="view-routes" hidden>
-  <div class="map" id="map-route" role="region" aria-label="추천 동선 지도"></div>
-  <aside class="panel" id="panel-route" aria-label="추천 동선">
-    <button type="button" class="sheet-handle" aria-label="동선 펼치기 / 접기"></button>
-    <div class="panel-head"><h2>추천 동선</h2><span class="meta">권역별 도보 탐방</span></div>
+  <div class="map" id="map-route" role="region" aria-label="도보 코스 지도"></div>
+  <aside class="panel" id="panel-route" aria-label="도보 코스">
+    <button type="button" class="sheet-handle" aria-label="코스 펼치기 / 접기"></button>
+    <div class="panel-head"><h2>도보 코스</h2><span class="meta">테마 · 권역별 추천 동선</span></div>
     <div class="route-tabs" id="route-tabs"></div>
     <div class="route-info" id="route-info"></div>
     <ol class="stops" id="stops"></ol>
@@ -475,29 +503,24 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 
 <template id="footer">
   <footer class="site">
-    <div>문의: 대전건축여지도 제작팀<br>건축자산 정보 정정 요청은 소개 페이지의 출처 기관으로 문의해 주세요.<br><br>© 대전건축여지도</div>
-    <div>대전건축여지도<br>기획 · 제작: 서광일<br>디지털인문학 프로젝트</div>
-    <div>데이터: 대전광역시 근현대 건축문화유산 전수조사<br>지도: OpenFreeMap · OpenStreetMap<br>사진: 국가유산포털 · 공공누리</div>
+    <div>문의: 대전관광여지도 제작팀<br>명소 정보 정정 요청은 소개 페이지의 출처 기관으로 문의해 주세요.<br><br>© 대전관광여지도</div>
+    <div>대전관광여지도<br>기획 · 제작: 서광일<br>언론정보학과 기말 프로젝트</div>
+    <div>데이터: 한국관광공사 TourAPI · 대전관광<br>지도: OpenFreeMap · OpenStreetMap<br>사진: 한국관광공사 · 국가유산포털 · 공공누리</div>
   </footer>
 </template>
 
-<!-- ===== 2. 전체목록 ===== -->
+<!-- ===== 2. 명소 목록 ===== -->
 <section class="view frame" id="view-list" hidden>
   <div class="content">
-    <h1 class="page-title" id="list-title">전체목록</h1>
+    <h1 class="page-title" id="list-title">명소 전체목록</h1>
     <p class="small" id="list-count"></p>
     <div class="filters-line">
       <label>검색 <input id="lq" type="search" placeholder="이름, 주소"></label>
       <label>구 <select id="lgu"></select></label>
-      <label>시대 <select id="lera"></select></label>
-      <label>용도 <select id="luse"></select></label>
+      <label>정렬 <select id="lsort"><option value="no">번호순</option><option value="name">이름순</option></select></label>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>번호</th><th>건축물</th><th>구</th><th><button type="button" id="sort-year">준공 ↕</button></th><th>시대</th><th>용도</th></tr></thead>
-        <tbody id="list-body"></tbody>
-      </table>
-    </div>
+    <div class="chip-row" id="lthemes" role="group" aria-label="테마 (여러 개 선택 가능)" style="margin-bottom:22px"></div>
+    <ul class="pgrid" id="list-body"></ul>
   </div>
   <div data-slot="footer"></div>
 </section>
@@ -507,39 +530,24 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   <div class="content">
     <h1 class="page-title">소개</h1>
     <div class="prose" style="margin-top:16px">
-      <p>대전에는 근현대 역사를 담은 우수건축자산 308건이 있습니다. 하지만 시민과 방문객이 이를 한곳에서 찾아볼 방법이 없었습니다.</p>
-      <p>대전건축여지도는 공공데이터와 지도로 이 건축물들의 위치와 이야기를 보여 주고, 권역별로 직접 걸어 볼 수 있는 동선을 제안합니다.</p>
+      <p>대전관광여지도는 대전의 관광명소를 문화유산, 자연·공원, 과학·전시, 거리·골목, 체험·여가, 야경·전망의 여섯 가지 테마로 나누어, 보고 싶은 테마만 골라 지도에서 바로 확인할 수 있게 만든 사이트입니다.</p>
+      <p>동구 · 중구 · 서구 · 유성구 · 대덕구 다섯 권역별로 명소를 모아 보여 주고, 가까운 명소끼리 걸어서 이어지는 도보 코스를 지도 위 경로로 제안합니다. 따로 검색하지 않아도 하루 나들이 동선을 쉽게 짤 수 있도록 하는 것이 목표입니다.</p>
     </div>
     <div class="cols">
-      <div><h2>이런 분께</h2><ul><li>대전 근현대 건축과 역사에 관심 있는 시민</li><li>대전을 찾는 여행자</li><li>건축역사를 공부하는 학생</li></ul></div>
-      <div><h2>할 수 있는 것</h2><ul><li>지도에서 건축자산 위치 확인</li><li>구 · 시대 · 용도로 골라 보기</li><li>권역별 탐방 동선 따라 걷기</li></ul></div>
-      <div><h2>만드는 원칙</h2><ul><li>회원 기능 없이 누구나 바로 검색</li><li>공공누리 등 개방된 공공 자료만 사용</li><li>모든 자료의 출처 표시</li></ul></div>
+      <div><h2>이런 분께</h2><ul><li>대전을 처음 찾는 여행자</li><li>주말 나들이 장소를 찾는 대전 시민</li><li>걸어서 여행하는 뚜벅이 여행자</li></ul></div>
+      <div><h2>할 수 있는 것</h2><ul><li>여러 테마를 동시에 켜고 끄며 지도 보기</li><li>테마 · 권역(구)별로 명소 골라 보기</li><li>가까운 명소와 도보 코스 확인</li></ul></div>
+      <div><h2>만드는 원칙</h2><ul><li>맛집 · 숙박은 빼고 관광명소만</li><li>회원 기능 없이 누구나 바로 검색</li><li>공공데이터 · 공공누리 자료와 출처 표시</li></ul></div>
     </div>
     <h2 class="page-title" style="font-size:20px">데이터 출처</h2>
     <div class="src">
-      <div><b>건축자산 목록</b><span>대전광역시 고시공고, 근현대 건축문화유산 전수조사 결과 공고문 (반영 예정, 현재 샘플 25건)</span></div>
-      <div><b>사진 · 역사 개요</b><span>국가유산포털(heritage.go.kr), 공공누리 개방 저작물 (반영 예정)</span></div>
-      <div><b>건축물 좌표 · 하천</b><span>© OpenStreetMap contributors (ODbL)</span></div>
+      <div><b>관광명소 목록</b><span>한국관광공사 TourAPI(공공데이터포털), 대전관광 홈페이지 (반영 예정, 현재 직접 정리한 샘플 36곳)</span></div>
+      <div><b>사진 · 소개 글</b><span>한국관광공사 제공 사진(공공누리), 국가유산포털, 직접 촬영. 사진마다 출처를 따로 표시합니다.</span></div>
+      <div><b>명소 좌표 · 하천</b><span>© OpenStreetMap contributors (ODbL). 일부는 근사 좌표로 현장 확인 예정</span></div>
+      <div><b>도보 코스</b><span>명소 사이 직선거리로 계산한 추정치. 직접 답사로 확인 예정</span></div>
       <div><b>행정구역 경계</b><span>통계청 2013 행정구역 경계, southkorea-maps 가공본</span></div>
       <div><b>배경 지도</b><span>OpenFreeMap © OpenMapTiles, Data from OpenStreetMap</span></div>
       <div><b>지도 라이브러리</b><span>Leaflet, Leaflet.markercluster, MapLibre GL</span></div>
     </div>
-  </div>
-  <div data-slot="footer"></div>
-</section>
-
-<!-- ===== 6. 관련 사이트 ===== -->
-<section class="view frame" id="view-links" hidden>
-  <div class="content">
-    <h1 class="page-title">관련 사이트</h1>
-    <ul class="links">
-      <li><a href="https://www.daejeon.go.kr" target="_blank" rel="noopener"><span><b>대전광역시청</b><small>건축자산 관련 고시공고 · 시정 정보</small></span><span class="go">daejeon.go.kr ↗</span></a></li>
-      <li><a href="https://www.heritage.go.kr" target="_blank" rel="noopener"><span><b>국가유산포털</b><small>국가유산청의 문화유산 정보와 사진</small></span><span class="go">heritage.go.kr ↗</span></a></li>
-      <li><a href="https://www.kogl.or.kr" target="_blank" rel="noopener"><span><b>공공누리</b><small>공공저작물 이용 조건 확인</small></span><span class="go">kogl.or.kr ↗</span></a></li>
-      <li><a href="https://hanok.seoul.go.kr" target="_blank" rel="noopener"><span><b>서울한옥포털</b><small>지도 기반 건축 탐색 참고 사례</small></span><span class="go">hanok.seoul.go.kr ↗</span></a></li>
-      <li><a href="https://www.ohseoul.org" target="_blank" rel="noopener"><span><b>오픈하우스서울</b><small>지도 인터페이스 참고 사례</small></span><span class="go">ohseoul.org ↗</span></a></li>
-      <li><a href="https://temiorae.com/" target="_blank" rel="noopener"><span><b>테미오래</b><small>옛 충남도 관사촌 시민 문화 공간</small></span><span class="go">temiorae.com ↗</span></a></li>
-    </ul>
   </div>
   <div data-slot="footer"></div>
 </section>
@@ -555,22 +563,37 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 /*DATA*/
 window.DISTRICTS = /*DISTRICTS*/;
 window.RIVERS = /*RIVERS*/;
+// 사진 파일 찾기: jpg → png → webp 순서로 시도하고, 없으면 자리표시를 남긴다.
+window.__img = el => {
+  const ext = ["jpg", "png", "webp"], i = +(el.dataset.i || 0) + 1;
+  if (i < ext.length) { el.dataset.i = i; el.src = el.dataset.base + "." + ext[i]; } else el.remove();
+};
 </script>
 <script>
 (() => {
-  const B = window.BUILDINGS, R = window.ROUTES;
+  const B = window.PLACES, R = window.ROUTES, T = window.THEMES;
   const byId = Object.fromEntries(B.map(b => [b.id, b]));
+  const TH = Object.fromEntries(T.map(t => [t.key, t]));
   const no = b => b.id.slice(1);
-  const yr = b => b.year ? String(b.year) : "연도 미상";
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const GU = ["동구", "중구", "서구", "유성구", "대덕구"];
-  const ERA = ["조선", "일제강점기", "1950~70년대", "1980년대 이후"];
-  const ERA_HASH = { "era-joseon": "조선", "era-colonial": "일제강점기", "era-postwar": "1950~70년대", "era-recent": "1980년대 이후" };
-  const USE = [...new Set(B.map(b => b.use))];
+  const allThemes = b => [b.theme, ...(b.themes || [])];
+  const col = b => TH[b.theme].color;
+  const tname = b => TH[b.theme].name;
   const mobile = () => matchMedia("(max-width: 860px)").matches;
-  const thumb = b => `<div class="thumb" aria-hidden="true"><b>No. ${no(b)}</b><span>${b.year ?? "—"}</span></div>`;
+  // 사진: photos/<대표 테마>/<id>.jpg, 두 번째는 <id>-2.jpg
+  const photoBase = (b, n = 1) => `photos/${b.theme}/${b.id}${n > 1 ? "-" + n : ""}`;
+  const img = (b, n = 1) => `<img class="pimg" src="${photoBase(b, n)}.jpg" data-base="${photoBase(b, n)}" alt="" loading="lazy" onerror="__img(this)">`;
+  const thumb = b => `<div class="thumb" style="--c:${col(b)}" aria-hidden="true"><b>${esc(tname(b))}</b><span>${no(b)}</span>${img(b)}</div>`;
+  const ttags = b => allThemes(b).map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("");
+  const tchip = (t, on, attr) => `<button type="button" class="chip t" style="--c:${t.color}" ${attr} aria-pressed="${on}"><i class="dot"></i>${esc(t.name)}</button>`;
+  // 두 점 사이 직선거리(m)와 걷는 시간(분): 길이 굽는 만큼 1.3배, 시속 4km
+  const dist = (a, b) => { const r = Math.PI / 180, x = (b.lng - a.lng) * r * Math.cos((a.lat + b.lat) / 2 * r), y = (b.lat - a.lat) * r; return Math.hypot(x, y) * 6371000; };
+  const walkMin = m => Math.max(1, Math.round(m * 1.3 / 66.7));
+  const fmtDist = m => m < 1000 ? `${Math.round(m / 10) * 10}m` : `${(m / 1000).toFixed(1)}km`;
+  const fmtMin = n => n < 60 ? `${n}분` : `${Math.floor(n / 60)}시간${n % 60 ? ` ${n % 60}분` : ""}`;
 
-  // 문서형 페이지에 공통 머리·꼬리 채우기
+  // 문서형 페이지에 공통 꼬리 채우기
   document.querySelectorAll('[data-slot="footer"]').forEach(el => el.replaceWith(document.getElementById("footer").content.cloneNode(true)));
 
   // ---------- 지도 공통 ----------
@@ -633,35 +656,42 @@ window.RIVERS = /*RIVERS*/;
       .catch(() => {});
   }
 
-  const PIN_SVG = '<svg viewBox="0 0 26 34" aria-hidden="true"><path d="M13 0C5.8 0 0 5.6 0 12.6 0 22 13 34 13 34s13-12 13-21.4C26 5.6 20.2 0 13 0z"/><circle cx="13" cy="12.5" r="4" fill="#fff"/></svg>';
-  const pinIcon = () => L.divIcon({ className: "", html: `<div class="pin">${PIN_SVG}</div>`, iconSize: [26, 34], iconAnchor: [13, 34], tooltipAnchor: [14, -22], popupAnchor: [0, -34] });
+  const PIN_D = "M13 0C5.8 0 0 5.6 0 12.6 0 22 13 34 13 34s13-12 13-21.4C26 5.6 20.2 0 13 0z";
+  const PIN_SVG = `<svg viewBox="0 0 26 34" aria-hidden="true"><path d="${PIN_D}"/><circle cx="13" cy="12.5" r="4" fill="#fff"/></svg>`;
+  const pinIcon = b => L.divIcon({ className: "", html: `<div class="pin" style="--c:${col(b)}">${PIN_SVG}</div>`, iconSize: [26, 34], iconAnchor: [13, 34], tooltipAnchor: [14, -22], popupAnchor: [0, -34] });
   const numIcon = n => L.divIcon({ className: "", html: `<div class="npin">${n}</div>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14] });
-  const cardHtml = b => `<div class="hc">${thumb(b)}<div class="hc-body"><b>${esc(b.name)}${b.alt ? `, ${esc(b.alt)}` : ""}</b><span>${esc(b.gu)} · ${yr(b)} · ${esc(b.use)}</span></div></div>`;
+  const cardHtml = b => `<div class="hc">${thumb(b)}<div class="hc-body"><b>${esc(b.name)}${b.alt ? `, ${esc(b.alt)}` : ""}</b><span>${esc(b.gu)} · ${allThemes(b).map(k => esc(TH[k].name)).join(" · ")}</span></div></div>`;
   const popupHtml = b => `<div class="pop">${cardHtml(b)}<div class="pop-actions"><a href="#${b.id}">상세보기 →</a></div></div>`;
 
   // ---------- 1. 지도 페이지 ----------
-  const st = { q: "", gu: "", era: "", use: "", active: null };
+  // themes: 켜 둔 테마(비어 있으면 전체). 홈의 테마 버튼과 같은 상태를 쓴다.
+  const st = { q: "", themes: new Set(), gu: "", active: null };
   const filtersEl = document.getElementById("filters");
-  const group = (label, key, vals) => `<div class="fgroup" role="group" aria-label="${label}"><span class="lbl">${label}</span>` +
-    [["", "전체"], ...vals.map(v => [v, v])].map(([v, t]) => `<button type="button" class="chip" data-k="${key}" data-v="${esc(v)}" aria-pressed="${st[key] === v}">${esc(t)}</button>`).join("") + "</div>";
-  const renderFilters = () => filtersEl.innerHTML = group("구", "gu", GU) + '<span class="fsep"></span>' + group("시대", "era", ERA) + '<span class="fsep"></span>' + group("용도", "use", USE);
+  const themeGroup = set => `<button type="button" class="chip" data-all aria-pressed="${!set.size}">전체</button>` + T.map(t => tchip(t, set.has(t.key), `data-t="${t.key}"`)).join("");
+  const renderFilters = () => filtersEl.innerHTML =
+    `<div class="fgroup" role="group" aria-label="테마 (여러 개 선택 가능)"><span class="lbl">테마</span>${themeGroup(st.themes)}</div><span class="fsep"></span>` +
+    `<div class="fgroup" role="group" aria-label="구"><span class="lbl">구</span>` +
+    [["", "전체"], ...GU.map(v => [v, v])].map(([v, t]) => `<button type="button" class="chip" data-gu="${v}" aria-pressed="${st.gu === v}">${t}</button>`).join("") + "</div>";
+  // 테마 칩 누르기: 켜고 끄기를 여러 개 함께. '전체'는 모두 해제.
+  const toggleTheme = (set, c) => { if (c.dataset.all != null) set.clear(); else if (c.dataset.t) set.has(c.dataset.t) ? set.delete(c.dataset.t) : set.add(c.dataset.t); };
   filtersEl.addEventListener("click", e => {
     const c = e.target.closest(".chip"); if (!c) return;
-    st[c.dataset.k] = c.dataset.v; renderFilters(); applyFilters(true);
+    if (c.dataset.gu != null) st.gu = c.dataset.gu; else toggleTheme(st.themes, c);
+    themesChanged(); applyFilters(true);
   });
-  const matches = (b, s) => (!s.gu || b.gu === s.gu) && (!s.era || b.era === s.era) && (!s.use || b.use === s.use) &&
-    (!s.q || [b.name, b.alt, b.addr, b.gu, b.use, b.era].join(" ").toLowerCase().includes(s.q.toLowerCase()));
+  const matches = (b, s) => (!s.themes.size || allThemes(b).some(k => s.themes.has(k))) && (!s.gu || b.gu === s.gu) &&
+    (!s.q || [b.name, b.alt, b.addr, b.gu, ...allThemes(b).map(k => TH[k].name), b.desc].join(" ").toLowerCase().includes(s.q.toLowerCase()));
 
   let mainMap, cluster, markers = {};
   function initMainMap() {
     mainMap = baseMap("map-main");
     cluster = L.markerClusterGroup({
-      showCoverageOnHover: false, maxClusterRadius: 44, spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false, maxClusterRadius: 40, spiderfyOnMaxZoom: true,
       iconCreateFunction: c => { const n = c.getChildCount(), s = n < 10 ? 34 : n < 50 ? 42 : 52;
         return L.divIcon({ className: "", html: `<div class="cluster" style="width:${s}px;height:${s}px">${n}</div>`, iconSize: [s, s] }); }
     }).addTo(mainMap);
     B.forEach(b => {
-      const mk = L.marker([b.lat, b.lng], { icon: pinIcon(), title: b.name, alt: b.name, riseOnHover: true });
+      const mk = L.marker([b.lat, b.lng], { icon: pinIcon(b), title: b.name, alt: b.name, riseOnHover: true });
       mk.bindTooltip(cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 });
       mk.bindPopup(popupHtml(b), { maxWidth: 320, autoPanPaddingTopLeft: [mobile() ? 10 : 420, 140] });
       mk.on("click", () => { mk.closeTooltip(); select(b.id, false); });
@@ -673,7 +703,7 @@ window.RIVERS = /*RIVERS*/;
     });
     mainMap.on("popupclose", () => { st.active = null; paint(); });
     applyFilters(false);
-    fitTo(B, false);
+    fitTo(B.filter(b => matches(b, st)), false);
   }
   // 지도에서 떠 있는 패널·상단 바에 가리지 않는 영역에 맞춘다.
   function padOpts() {
@@ -687,6 +717,7 @@ window.RIVERS = /*RIVERS*/;
   }
   const cardsEl = document.getElementById("cards");
   function applyFilters(refit) {
+    if (!mainMap) return;
     const shown = B.filter(b => matches(b, st));
     document.getElementById("count").textContent = `${shown.length}곳 / 전체 ${B.length}곳`;
     cardsEl.innerHTML = shown.length ? shown.map(b => `
@@ -694,11 +725,11 @@ window.RIVERS = /*RIVERS*/;
         ${thumb(b)}
         <div style="min-width:0">
           <h3>${esc(b.name)}</h3>${b.alt ? `<div class="alt">${esc(b.alt)}</div>` : ""}
-          <div class="addr">${yr(b)} · ${esc(b.addr)}</div>
-          <div class="tags"><span class="tag">${esc(b.gu)}</span><span class="tag">${esc(b.era)}</span><span class="tag">${esc(b.use)}</span></div>
+          <div class="addr">${esc(b.addr)}</div>
+          <div class="tags">${ttags(b)}<span class="tag">${esc(b.gu)}</span></div>
         </div>
       </li>`).join("")
-      : `<li class="empty">조건에 맞는 건축자산이 없습니다. 검색어나 필터를 바꿔 보세요.<br><button type="button" id="reset">필터 초기화</button></li>`;
+      : `<li class="empty">조건에 맞는 명소가 없습니다. 검색어나 테마를 바꿔 보세요.<br><button type="button" id="reset">필터 초기화</button></li>`;
     cluster.clearLayers();
     cluster.addLayers(shown.map(b => markers[b.id]));
     if (st.active && !shown.some(b => b.id === st.active)) { st.active = null; mainMap.closePopup(); }
@@ -706,7 +737,7 @@ window.RIVERS = /*RIVERS*/;
     paint();
   }
   cardsEl.addEventListener("click", e => {
-    if (e.target.id === "reset") { Object.assign(st, { q: "", gu: "", era: "", use: "" }); document.getElementById("q").value = ""; renderFilters(); applyFilters(true); return; }
+    if (e.target.id === "reset") { st.q = ""; st.gu = ""; st.themes.clear(); document.getElementById("q").value = ""; themesChanged(); applyFilters(true); return; }
     const li = e.target.closest(".card"); if (li) select(li.dataset.id, true);
   });
   cardsEl.addEventListener("keydown", e => { const li = e.target.closest(".card"); if (li && e.key === "Enter") select(li.dataset.id, true); });
@@ -774,7 +805,6 @@ window.RIVERS = /*RIVERS*/;
   });
   setSheet("peek");
 
-  // 데스크톱 패널은 상단 바 바로 아래에서 시작
   // 상단 바 높이(필터 줄 유무에 따라 다름)를 패널 · 문서 · 상세 창 위치에 반영
   function placePanels() {
     const bottom = document.getElementById("topbar").getBoundingClientRect().bottom;
@@ -790,17 +820,17 @@ window.RIVERS = /*RIVERS*/;
   }
   addEventListener("resize", () => { placePanels(); maps.forEach(refreshMap); });
 
-  // ---------- 0. 인트로 ----------
+  // ---------- 0. 홈 ----------
+  function themesChanged() {
+    renderFilters();
+    const n = B.filter(b => matches(b, { ...st, q: "", gu: "" })).length;
+    document.getElementById("intro-cap").textContent = st.themes.size ? `고른 테마 ${n}곳 지도에서 보기 →` : `대전 5개 구 · 관광명소 ${B.length}곳 →`;
+    document.querySelectorAll("#intro-svg .im-pin").forEach(p => p.classList.toggle("dim", !!st.themes.size && !allThemes(byId[p.dataset.id]).some(k => st.themes.has(k))));
+  }
   function renderIntro() {
-    document.querySelectorAll("[data-pin]").forEach(el => el.innerHTML = PIN_SVG);
-    const years = B.map(b => b.year).filter(Boolean);
-    const gus = new Set(B.map(b => b.gu)).size;
-    document.getElementById("intro-stats").innerHTML = [
-      [B.length, "샘플 건축자산 · 308건 반영 예정"], [gus, "자치구"], [R.length, "추천 동선"],
-      [`${Math.min(...years)}–${Math.max(...years)}`, "건립 연도 범위"]
-    ].map(([n, t]) => `<div><b>${n}</b><span>${t}</span></div>`).join("");
-    document.getElementById("intro-cap").textContent = `대전 5개 구 · 건축자산 ${B.length}곳 →`;
-    // 구 경계 · 하천 · 건축물 위치를 간단한 SVG 지도로 그린다
+    document.getElementById("vis-themes").innerHTML = T.slice(0, 4).map((t, i) => tchip(t, i < 2, "")).join("");
+    document.getElementById("vis-pins").innerHTML = T.map(t => `<div class="pin" style="--c:${t.color}">${PIN_SVG}</div>`).join("");
+    // 구 경계 · 하천 · 명소 위치를 간단한 SVG 지도로 그린다
     const all = window.DISTRICTS.features.flatMap(f => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates).flat(1)).flat(1);
     const lons = all.map(c => c[0]), lats = all.map(c => c[1]);
     const [x0, x1, y0, y1] = [Math.min(...lons), Math.max(...lons), Math.min(...lats), Math.max(...lats)];
@@ -818,83 +848,89 @@ window.RIVERS = /*RIVERS*/;
       return `<text class="im-label" x="${x}" y="${y}" text-anchor="middle">${f.properties.name}</text>`;
     }).join("");
     svg += B.map(b => { const [x, y] = P([b.lng, b.lat]).split(",").map(Number);
-      return `<path class="im-pin" transform="translate(${(x - 6.5).toFixed(1)},${(y - 17).toFixed(1)}) scale(0.5)" d="M13 0C5.8 0 0 5.6 0 12.6 0 22 13 34 13 34s13-12 13-21.4C26 5.6 20.2 0 13 0z"><title>${esc(b.name)}</title></path>`; }).join("");
+      return `<path class="im-pin" data-id="${b.id}" style="fill:${col(b)}" transform="translate(${(x - 6.5).toFixed(1)},${(y - 17).toFixed(1)}) scale(0.5)" d="${PIN_D}"><title>${esc(b.name)}</title></path>`; }).join("");
     const el = document.getElementById("intro-svg");
     el.setAttribute("viewBox", `0 0 ${W} ${H}`);
     el.innerHTML = svg;
+    themesChanged();
   }
 
-  // ---------- 2. 전체목록 ----------
-  const fill = (id, vals) => document.getElementById(id).innerHTML = '<option value="">전체</option>' + vals.map(v => `<option>${esc(v)}</option>`).join("");
-  fill("lgu", GU); fill("lera", ERA); fill("luse", USE);
-  let sortDir = 0;
+  // ---------- 2. 명소 목록 ----------
+  const lst = { themes: new Set() };
+  const [lq, lgu, lsort, lthemes] = ["lq", "lgu", "lsort", "lthemes"].map(id => document.getElementById(id));
+  lgu.innerHTML = '<option value="">전체</option>' + GU.map(v => `<option>${v}</option>`).join("");
   function renderTable() {
-    const s = { q: lq.value.trim(), gu: lgu.value, era: lera.value, use: luse.value };
+    const s = { q: lq.value.trim(), gu: lgu.value, themes: lst.themes };
     let rows = B.filter(b => matches(b, s));
-    if (sortDir) rows = [...rows].sort((a, b) => ((a.year ?? 9999) - (b.year ?? 9999)) * sortDir);
-    document.getElementById("list-title").textContent = s.era ? s.era : "전체목록";
-    document.getElementById("list-count").textContent = `${rows.length}건`;
-    document.getElementById("sort-year").textContent = "준공 " + (sortDir === 1 ? "↑" : sortDir === -1 ? "↓" : "↕");
+    if (lsort.value === "name") rows = [...rows].sort((a, b) => a.name.localeCompare(b.name, "ko"));
+    lthemes.innerHTML = themeGroup(lst.themes);
+    const names = T.filter(t => lst.themes.has(t.key)).map(t => t.name);
+    document.getElementById("list-title").textContent = names.length ? names.join(" · ") : "명소 전체목록";
+    document.getElementById("list-count").textContent = `${rows.length}곳${s.gu ? ` · ${s.gu}` : ""}`;
     document.getElementById("list-body").innerHTML = rows.map(b => `
-      <tr data-id="${b.id}"><td class="num">${no(b)}</td>
-      <td><a href="#${b.id}">${esc(b.name)}</a>${b.alt ? `<span class="alt">${esc(b.alt)}</span>` : ""}</td>
-      <td>${esc(b.gu)}</td><td class="num">${b.year ?? "—"}</td><td>${esc(b.era)}</td><td>${esc(b.use)}</td></tr>`).join("")
-      || '<tr><td colspan="6" class="empty">조건에 맞는 건축자산이 없습니다.</td></tr>';
+      <li><a class="pcard" href="#${b.id}">
+        <div class="ph" style="--c:${col(b)}">${esc(tname(b))}<span>${no(b)}</span>${img(b)}</div>
+        <div><h2>${esc(b.name)}</h2><div class="meta">${esc(b.addr)}</div><div class="tags">${ttags(b)}<span class="tag">${esc(b.gu)}</span></div></div>
+      </a></li>`).join("")
+      || '<li class="empty">조건에 맞는 명소가 없습니다.</li>';
   }
-  const [lq, lgu, lera, luse] = ["lq", "lgu", "lera", "luse"].map(id => document.getElementById(id));
-  [lq, lgu, luse].forEach(el => el.addEventListener("input", renderTable));
-  lera.addEventListener("input", () => {
-    const h = Object.keys(ERA_HASH).find(k => ERA_HASH[k] === lera.value);
-    history.replaceState(null, "", "#" + (h || "list")); syncNav("list"); renderTable();
+  [lq, lgu, lsort].forEach(el => el.addEventListener("input", renderTable));
+  lthemes.addEventListener("click", e => {
+    const c = e.target.closest(".chip"); if (!c) return;
+    toggleTheme(lst.themes, c);
+    history.replaceState(null, "", "#" + (lst.themes.size === 1 ? "theme-" + [...lst.themes][0] : "list")); renderTable();
   });
-  document.getElementById("sort-year").addEventListener("click", () => { sortDir = sortDir === 0 ? 1 : sortDir === 1 ? -1 : 0; renderTable(); });
-  document.getElementById("list-body").addEventListener("click", e => { const tr = e.target.closest("tr[data-id]"); if (tr && !e.target.closest("a")) location.hash = tr.dataset.id; });
 
   // ---------- 3. 상세 창 ----------
   const detailEl = document.getElementById("detail");
   let detailMap, lastView = "map";
+  const BACK = { intro: "홈", map: "지도", list: "명소 목록", routes: "도보 코스", about: "소개" };
   function openDetail(id) {
     const b = byId[id], i = B.indexOf(b);
     const prev = B[(i - 1 + B.length) % B.length], next = B[(i + 1) % B.length];
     const routes = R.filter(r => r.stops.includes(id));
+    const near = B.filter(x => x !== b).map(x => [x, dist(b, x)]).sort((p, q) => p[1] - q[1]).slice(0, 4);
+    const photo = (n, cls, label) => `<div class="photo ${cls}">${label}<br><small>${photoBase(b, n)}.jpg</small>${img(b, n)}</div>`;
     detailEl.innerHTML = `
       <div class="frame">
-        <div class="detail-bar"><a href="#${lastView}" class="u">← ${{ intro: "홈", map: "지도", list: "목록", routes: "추천 동선", about: "소개", links: "관련 사이트" }[lastView]}</a><button type="button" id="d-close" aria-label="닫기">닫기 ✕</button></div>
+        <div class="detail-bar"><a href="#${lastView}" class="u">← ${BACK[lastView]}</a><button type="button" id="d-close" aria-label="닫기">닫기 ✕</button></div>
         <div class="d-grid">
           <div>
-            <p class="d-cat"><span class="k">${esc(b.era)} · ${esc(b.use)}</span><br><span id="d-title" style="font-size:17px">${esc(b.name)}</span>${b.alt ? `<br>${esc(b.alt)}` : ""}</p>
+            <p class="d-cat"><span class="k" style="color:${col(b)}">${allThemes(b).map(k => esc(TH[k].name)).join(" · ")}</span><br><span id="d-title" style="font-size:17px">${esc(b.name)}</span>${b.alt ? `<br>${esc(b.alt)}` : ""}</p>
             <div class="d-box">
-              <div>준공 ${yr(b)}<br>대전광역시 ${esc(b.addr)}<br>No. ${no(b)} · ${esc(b.gu)}</div>
+              <div>대전광역시 ${esc(b.addr)}<br>No. ${no(b)} · ${esc(b.gu)}</div>
               <a href="#map" data-focus="${b.id}">지도 보기</a>
             </div>
             <p class="d-text">${esc(b.desc)}</p>
-            <p class="d-credit"><b>글</b> 대전건축여지도 &nbsp;<b>사진</b> 출처 표기 예정</p>
+            <p class="d-credit"><b>글</b> 대전관광여지도 &nbsp;<b>사진</b> ${esc(b.credit || "출처 표기 예정")}</p>
           </div>
           <div class="d-photos">
-            <div><div class="photo">대표 사진 자리<br>국가유산포털 · 공공누리 자료 반영 시 출처와 함께 표시</div><p class="cap">사진_출처 표기 예정</p></div>
-            <div><div class="photo wide">세부 사진 자리</div><p class="cap">1 / 2</p></div>
+            <div>${photo(1, "", "대표 사진 자리")}<p class="cap">${esc(b.credit || "사진 출처 표기 예정")}</p></div>
+            <div>${photo(2, "wide", "두 번째 사진 자리")}</div>
           </div>
         </div>
         <div class="d-tags">
-          <span>+${esc(b.era)}, +${esc(b.use)}</span>
+          <span>${allThemes(b).map(k => `<a class="u" href="#theme-${k}">+${esc(TH[k].name)}</a>`).join(" ")}</span>
           <span><a class="u" href="#list">#${esc(b.gu)}</a>${routes.map(r => `<a class="u" href="#routes" data-route="${r.id}">#${esc(r.name)}</a>`).join("")}</span>
         </div>
         <div class="d-bottom">
           <div class="d-map"><div class="map" id="map-detail"></div></div>
           <dl class="facts">
             <dt>주소</dt><dd>대전광역시 ${esc(b.addr)}</dd>
-            <dt>준공</dt><dd>${yr(b)}</dd>
-            <dt>시대</dt><dd>${esc(b.era)}</dd>
-            <dt>용도</dt><dd>${esc(b.use)}</dd>
-            <dt>좌표</dt><dd>${b.lat.toFixed(5)}, ${b.lng.toFixed(5)}</dd>
-            ${routes.length ? `<dt>추천 동선</dt><dd>${routes.map(r => esc(r.name)).join(", ")}</dd>` : ""}
+            <dt>테마</dt><dd>${allThemes(b).map(k => esc(TH[k].name)).join(", ")}</dd>
+            <dt>권역</dt><dd>${esc(b.gu)}</dd>
+            <dt>좌표</dt><dd>${b.lat.toFixed(5)}, ${b.lng.toFixed(5)}${b.approx ? " (근사값)" : ""}</dd>
+            ${routes.length ? `<dt>도보 코스</dt><dd>${routes.map(r => esc(r.name)).join(", ")}</dd>` : ""}
           </dl>
         </div>
-        <nav class="pager" aria-label="이전 다음 건축물">
+        <h2 class="d-sub">가까운 명소</h2>
+        <p class="small" style="margin:2px 0 0">직선거리 기준, 걷는 시간은 추정치입니다.</p>
+        <ul class="near">${near.map(([x, m]) => `<li><a href="#${x.id}">${thumb(x)}<span><b>${esc(x.name)}</b><small>${fmtDist(m)} · 걸어서 약 ${fmtMin(walkMin(m))}</small></span></a></li>`).join("")}</ul>
+        <nav class="pager" aria-label="이전 다음 명소">
           <a href="#${prev.id}"><span>← 이전</span>${esc(prev.name)}</a>
           <a href="#${next.id}"><span>다음 →</span>${esc(next.name)}</a>
         </nav>
-        <p style="margin-top:20px"><a class="u" href="#list">전체목록 보기</a></p>
+        <p style="margin-top:20px"><a class="u" href="#list">명소 목록 보기</a></p>
       </div>
       <div class="frame"><div data-slot="footer"></div></div>`;
     detailEl.querySelector('[data-slot="footer"]').replaceWith(document.getElementById("footer").content.cloneNode(true));
@@ -902,8 +938,11 @@ window.RIVERS = /*RIVERS*/;
     document.body.style.overflow = "hidden";
     if (detailMap) { maps.splice(maps.indexOf(detailMap), 1); detailMap.remove(); }
     detailMap = baseMap("map-detail", { scrollWheelZoom: false });
-    detailMap.setView([b.lat, b.lng], 16); setTimeout(() => refreshMap(detailMap), 150);
-    L.marker([b.lat, b.lng], { icon: pinIcon(), keyboard: false }).addTo(detailMap);
+    // 가까운 명소도 작은 점으로 함께 보여 준다
+    near.forEach(([x]) => L.circleMarker([x.lat, x.lng], { radius: 6, color: "#fff", weight: 2, fillColor: col(x), fillOpacity: 1 })
+      .bindTooltip(esc(x.name), { direction: "top" }).on("click", () => location.hash = x.id).addTo(detailMap));
+    L.marker([b.lat, b.lng], { icon: pinIcon(b), keyboard: false }).addTo(detailMap);
+    detailMap.setView([b.lat, b.lng], 15); setTimeout(() => refreshMap(detailMap), 150);
     document.getElementById("d-close").focus();
   }
   function closeDetail() { detailEl.hidden = true; document.body.style.overflow = ""; }
@@ -915,14 +954,16 @@ window.RIVERS = /*RIVERS*/;
   addEventListener("keydown", e => { if (e.key === "Escape" && !detailEl.hidden) location.hash = lastView; });
   let pendingFocus = null;
 
-  // ---------- 4. 추천 동선 ----------
+  // ---------- 4. 도보 코스 ----------
   let routeMap, routeLayer, curRoute = R[0].id;
   function renderRoute() {
     const r = R.find(x => x.id === curRoute), stops = r.stops.map(id => byId[id]);
+    const legs = stops.slice(1).map((b, k) => dist(stops[k], b)), total = legs.reduce((a, m) => a + m, 0);
+    const mins = legs.reduce((a, m) => a + walkMin(m), 0);
     document.getElementById("route-tabs").innerHTML = R.map(x => `<button type="button" class="chip" data-r="${x.id}" aria-pressed="${x.id === r.id}">${esc(x.name)}</button>`).join("");
-    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><span>${esc(r.note)}</span><span class="stats"><span>${stops.length}곳</span><span>${esc(r.time)}</span><span>${esc(r.distance)}</span></span>`;
+    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><span class="tags" style="margin:0">${r.themes.map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("")}</span><span>${esc(r.note)}</span><span class="stats"><span>${stops.length}곳</span><span>약 ${fmtDist(total * 1.3)}</span><span>걸어서 약 ${fmtMin(mins)}</span><span>관람 시간 제외</span></span>`;
     document.getElementById("stops").innerHTML = stops.map((b, k) => `
-      <li data-id="${b.id}"><span class="npin">${k + 1}</span><div style="min-width:0"><h3>${esc(b.name)}</h3><div class="addr">${yr(b)} · ${esc(b.addr)}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
+      <li data-id="${b.id}"><span class="npin">${k + 1}</span><div style="min-width:0"><h3>${esc(b.name)}</h3><div class="addr">${esc(tname(b))} · ${esc(b.addr)}${k < legs.length ? ` · 다음까지 약 ${fmtMin(walkMin(legs[k]))}` : ""}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
     if (!routeMap) routeMap = baseMap("map-route");
     if (routeLayer) routeMap.removeLayer(routeLayer);
     const pts = stops.map(b => [b.lat, b.lng]);
@@ -948,7 +989,7 @@ window.RIVERS = /*RIVERS*/;
 
   // ---------- 라우팅 ----------
   let introDone = false;
-  const VIEWS = ["intro", "map", "list", "routes", "about", "links"];
+  const VIEWS = ["intro", "map", "list", "routes", "about"];
   function syncNav(key) {
     document.querySelectorAll("[data-nav]").forEach(a => {
       if (a.dataset.nav === key) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -960,7 +1001,7 @@ window.RIVERS = /*RIVERS*/;
     document.body.classList.toggle("doc-view", !["map", "routes"].includes(view));
     placePanels();
     if (view === "map") {
-      if (!mainMap) { placePanels(); initMainMap(); } else { placePanels(); refreshMap(mainMap); [150, 800].forEach(t => setTimeout(() => refreshMap(mainMap), t)); }
+      if (!mainMap) { placePanels(); initMainMap(); } else { placePanels(); refreshMap(mainMap); fitTo(B.filter(b => matches(b, st)), false); [150, 800].forEach(t => setTimeout(() => refreshMap(mainMap), t)); }
       if (pendingFocus) { const id = pendingFocus; pendingFocus = null; setTimeout(() => select(id, true), 80); }
     }
     if (view === "routes") { placePanels(); renderRoute(); }
@@ -972,12 +1013,13 @@ window.RIVERS = /*RIVERS*/;
     const h = location.hash.slice(1) || "intro";
     if (byId[h]) {
       if (document.querySelector(".view:not([hidden])") == null) show(lastView);
-      openDetail(h); syncNav(lastView === "list" ? "list" : lastView); return;
+      openDetail(h); syncNav(lastView); return;
     }
     closeDetail();
     let view = h;
-    if (ERA_HASH[h]) { view = "list"; lera.value = ERA_HASH[h]; }
-    else if (h === "list") lera.value = "";
+    // #theme-heritage 처럼 테마 주소로 들어오면 그 테마만 고른 목록을 연다
+    if (h.startsWith("theme-") && TH[h.slice(6)]) { view = "list"; lst.themes = new Set([h.slice(6)]); }
+    else if (h === "list") lst.themes.clear();
     if (!VIEWS.includes(view)) view = "intro";
     lastView = view;
     syncNav(view);

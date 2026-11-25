@@ -1,2 +1,6 @@
 dist/
 __pycache__/
+.DS_Store
+*.docx
+쓰레기/
+.claude/
