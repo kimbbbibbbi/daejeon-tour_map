@@ -4,8 +4,8 @@
    heritage = 문화유산, nature = 자연·공원, science = 과학·전시,
    street = 거리·골목, activity = 체험·여가, night = 야경·전망
 2. 파일 이름은 명소 번호로 합니다. 각 폴더의 "목록.txt"에 번호가 적혀 있습니다.
-   대표 사진:   p01.jpg
-   두 번째 사진: p01-2.jpg
+   대표 사진:   h01.jpg
+   두 번째 사진: h01-2.jpg
    (jpg, png, webp 모두 됩니다. 확장자는 소문자로)
 3. 사진 출처는 data.js 해당 명소에 credit: "한국관광공사 홍길동" 처럼 적습니다.
 4. python3 build.py 로 다시 빌드합니다.

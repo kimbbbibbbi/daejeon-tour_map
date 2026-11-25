@@ -4,3 +4,4 @@ __pycache__/
 *.docx
 쓰레기/
 .claude/
+*.xlsx
