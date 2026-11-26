@@ -185,7 +185,7 @@ img.pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: 
 /* ================= 동선 패널 ================= */
 .route-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
 .route-info { padding: 12px 18px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; font-size: 13px; }
-.route-info .stats { display: flex; gap: 14px; color: var(--ink-3); font-size: 12px; }
+.route-info .stats { margin: 0; display: flex; gap: 14px; color: var(--ink-3); font-size: 12px; }
 .stops { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
 .stops li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 12px 18px; position: relative; cursor: pointer; }
 .stops li:hover { background: var(--soft); }
@@ -309,7 +309,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   position: absolute; left: 12px; bottom: 12px; font-size: 12px; font-weight: 500; background: var(--white);
   border-radius: 999px; padding: 5px 12px; color: var(--ink); box-shadow: var(--shadow);
 }
-.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 12px 0 40px; }
 .stats div { padding: 18px 20px; display: grid; gap: 2px; background: var(--soft); border-radius: var(--radius); }
 .stats b { font-family: var(--font-display); font-weight: 400; font-size: 34px; color: var(--black); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stats span { font-size: 12px; color: var(--ink-3); }
@@ -541,6 +541,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
       <div><h2>할 수 있는 것</h2><ul><li>여러 테마를 동시에 켜고 끄며 지도 보기</li><li>테마 · 권역(구)별로 명소 골라 보기</li><li>가까운 명소와 도보 코스 확인</li></ul></div>
       <div><h2>만드는 원칙</h2><ul><li>맛집 · 숙박은 빼고 관광명소만</li><li>회원 기능 없이 누구나 바로 검색</li><li>공공데이터 · 공공누리 자료와 출처 표시</li></ul></div>
     </div>
+    <h2 class="page-title" style="font-size:20px">한눈에 보기</h2>
+    <div class="stats" id="about-stats"></div>
     <h2 class="page-title" style="font-size:20px">데이터 출처</h2>
     <div class="src">
       <div><b>문화유산 목록 · 소개 글</b><span>대전광역시 문화유산 리플릿 해설 원문 16곳 (2026년 11월 기준 국가유산 지정종목 · 도로명주소 검증)</span></div>
@@ -837,6 +839,13 @@ window.PHOTOS = /*PHOTOS*/;
     document.getElementById("intro-cap").textContent = st.themes.size ? `고른 테마 ${n}곳 지도에서 보기 →` : `대전 5개 구 · 관광명소 ${B.length}곳 →`;
     document.querySelectorAll("#intro-svg .im-pin").forEach(p => p.classList.toggle("dim", !!st.themes.size && !allThemes(byId[p.dataset.id]).some(k => st.themes.has(k))));
   }
+  // 소개 페이지 숫자: 데이터에서 바로 센다(명소를 추가하면 함께 바뀜)
+  document.getElementById("about-stats").innerHTML = [
+    [B.length, "전체 관광명소", ""],
+    ...T.filter(t => themeCount(t.key)).map(t => [themeCount(t.key), t.name, t.color]),
+    [new Set(B.map(b => b.gu)).size, "자치구", ""],
+    ...(R.length ? [[R.length, "도보 코스", ""]] : [])
+  ].map(([n, label, c]) => `<div><b${c ? ` style="color:${c}"` : ""}>${n}</b><span>${esc(label)}</span></div>`).join("");
   document.getElementById("sample-note").textContent = T.filter(t => themeCount(t.key)).map(t => `${t.name} ${themeCount(t.key)}곳`).join(" · ") + (T.some(t => !themeCount(t.key)) ? " · 다른 테마는 준비 중" : "");
   function renderIntro() {
     document.getElementById("vis-themes").innerHTML = T.slice(0, 4).map((t, i) => `<span class="chip t" style="--c:${t.color}" aria-pressed="${i < 2}"><i class="dot"></i>${esc(t.name)}</span>`).join("");
