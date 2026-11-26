@@ -1021,8 +1021,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .chip.t { display: inline-flex; align-items: center; gap: 6px; }
 .chip.t:disabled { opacity: 0.45; cursor: default; background: var(--soft); color: var(--ink-3); }
 .chip.t .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
-.chip.t[aria-pressed="true"] { background: var(--c); color: #fff; }
-.chip.t[aria-pressed="true"] .dot { background: #fff; }
+.chip.t[aria-pressed="true"], .chip.t.is-all:not(:disabled) { background: var(--c); color: #fff; }
+.chip.t[aria-pressed="true"] .dot, .chip.t.is-all:not(:disabled) .dot { background: #fff; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .ttag { font-size: 12px; padding: 1px 7px; border-radius: 4px; color: var(--c); background: color-mix(in srgb, var(--c) 11%, var(--white)); font-weight: 500; }
 .pgrid { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(214px, 1fr)); gap: 22px 18px; }
@@ -1395,8 +1395,9 @@ window.PHOTOS = {};
   const thumb = b => `<div class="thumb" style="--c:${col(b)}" aria-hidden="true"><b>${esc(tname(b))}</b><span>${no(b)}</span>${img(b)}</div>`;
   const ttags = b => allThemes(b).map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("");
   const themeCount = k => B.filter(b => allThemes(b).includes(k)).length;
-  const tchip = (t, on, attr) => { const ready = themeCount(t.key) > 0;
-    return `<button type="button" class="chip t" style="--c:${t.color}" ${attr} aria-pressed="${on}"${ready ? "" : ' disabled title="준비 중"'}><i class="dot"></i>${esc(t.name)}${ready ? "" : " · 준비 중"}</button>`; };
+  // all: '전체'가 선택된 상태라 이 테마도 지도에 보이는 중 → 눌린 칩과 같은 색으로 채운다
+  const tchip = (t, on, attr, all = false) => { const ready = themeCount(t.key) > 0;
+    return `<button type="button" class="chip t${all ? " is-all" : ""}" style="--c:${t.color}" ${attr} aria-pressed="${on}"${ready ? "" : ' disabled title="준비 중"'}><i class="dot"></i>${esc(t.name)}${ready ? "" : " · 준비 중"}</button>`; };
   // 두 점 사이 직선거리(m)와 걷는 시간(분): 길이 굽는 만큼 1.3배, 시속 4km
   const dist = (a, b) => { const r = Math.PI / 180, x = (b.lng - a.lng) * r * Math.cos((a.lat + b.lat) / 2 * r), y = (b.lat - a.lat) * r; return Math.hypot(x, y) * 6371000; };
   const walkMin = m => Math.max(1, Math.round(m * 1.3 / 66.7));
@@ -1477,7 +1478,7 @@ window.PHOTOS = {};
   // themes: 켜 둔 테마(비어 있으면 전체). 홈의 테마 버튼과 같은 상태를 쓴다.
   const st = { q: "", themes: new Set(), gu: "", active: null };
   const filtersEl = document.getElementById("filters");
-  const themeGroup = set => `<button type="button" class="chip" data-all aria-pressed="${!set.size}">전체</button>` + T.map(t => tchip(t, set.has(t.key), `data-t="${t.key}"`)).join("");
+  const themeGroup = set => `<button type="button" class="chip" data-all aria-pressed="${!set.size}">전체</button>` + T.map(t => tchip(t, set.has(t.key), `data-t="${t.key}"`, !set.size)).join("");
   const renderFilters = () => filtersEl.innerHTML =
     `<div class="fgroup" role="group" aria-label="테마 (여러 개 선택 가능)"><span class="lbl">테마</span>${themeGroup(st.themes)}</div><span class="fsep"></span>` +
     `<div class="fgroup" role="group" aria-label="구"><span class="lbl">구</span>` +
