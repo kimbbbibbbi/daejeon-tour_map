@@ -555,7 +555,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
       <div><b>자연 · 공원 목록 · 소개 글</b><span>대전 자연 · 공원 명소 목록 13곳 (좌표 · 운영 정보 포함)</span></div>
       <div><b>과학 · 전시 목록 · 소개 글</b><span>대전 과학 · 전시 명소 목록 18곳 (KAIST · 대학 박물관 포함, 좌표 · 운영 정보 포함)</span></div>
       <div><b>다른 테마 명소</b><span>한국관광공사 TourAPI(공공데이터포털), 대전관광 홈페이지 (준비 중)</span></div>
-      <div><b>사진</b><span>한국관광공사 제공 사진(공공누리), 국가유산포털, 직접 촬영. 사진마다 출처를 따로 표시합니다.</span></div>
+      <div><b>사진</b><span>위키미디어 공용(Wikimedia Commons)의 자유 라이선스 사진(CC BY · CC BY-SA · CC0 · 퍼블릭 도메인)을 크기만 줄여 사용합니다. 작가와 라이선스는 명소마다 사진 아래에 표시하고 원본 페이지로 연결합니다. 앞으로 한국관광공사(공공누리) 자료와 직접 촬영 사진을 더할 예정입니다.</span></div>
       <div><b>명소 좌표 · 하천</b><span>© OpenStreetMap contributors (ODbL). 일부는 근사 좌표로 현장 확인 예정</span></div>
       <div><b>도보 코스</b><span>명소 사이 직선거리로 계산한 추정치. 직접 답사로 확인 예정</span></div>
       <div><b>행정구역 경계</b><span>통계청 2013 행정구역 경계, southkorea-maps 가공본</span></div>
@@ -694,6 +694,8 @@ window.PHOTOS = /*PHOTOS*/;
     if (c.dataset.gu != null) st.gu = c.dataset.gu; else toggleTheme(st.themes, c);
     themesChanged(); applyFilters(true);
   });
+  // 사진 출처: 원본 페이지 주소가 있으면 링크로
+  const credit = b => !b.credit ? "출처 표기 예정" : b.creditUrl ? `<a class="u" href="${esc(b.creditUrl)}" target="_blank" rel="noopener">${esc(b.credit)}</a>` : esc(b.credit);
   // 소개 글: 빈 줄로 단락, 단락 첫 줄에 " / " 가 있으면 소제목
   const descHtml = d => String(d || "").split(/\n\s*\n/).map(blk => {
     const [first, ...rest] = blk.trim().split("\n");
@@ -930,10 +932,10 @@ window.PHOTOS = /*PHOTOS*/;
               <a href="#map" data-focus="${b.id}">지도 보기</a>
             </div>
             <div class="d-text">${descHtml(b.desc)}</div>
-            <p class="d-credit"><b>글</b> ${esc(b.source || "대전관광여지도")} &nbsp;<b>사진</b> ${esc(b.credit || "출처 표기 예정")}</p>
+            <p class="d-credit"><b>글</b> ${esc(b.source || "대전관광여지도")} &nbsp;<b>사진</b> ${credit(b)}</p>
           </div>
           <div class="d-photos">
-            <div>${photo(1, "", "대표 사진 자리")}<p class="cap">${esc(b.credit || "사진 출처 표기 예정")}</p></div>
+            <div>${photo(1, "", "대표 사진 자리")}<p class="cap">${b.credit ? `사진: ${credit(b)}` : "사진 출처 표기 예정"}</p></div>
             <div>${photo(2, "wide", "두 번째 사진 자리")}</div>
           </div>
         </div>
