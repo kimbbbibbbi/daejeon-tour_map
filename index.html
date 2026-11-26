@@ -969,7 +969,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .eyebrow { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.14em; color: var(--ink-3); margin: 0; }
 .intro-hero {
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: center;
-  padding-block: 20px 40px;
+  padding-block: 12px 20px;
 }
 .intro-hero h1 { font-weight: 700; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.25; letter-spacing: -0.02em; margin: 12px 0 16px; }
 .lede { font-size: 16px; line-height: 1.75; max-width: 40ch; color: var(--ink-2); margin: 0; }
@@ -983,7 +983,9 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .btn.primary { background: var(--black); color: var(--white); }
 .btn.primary:hover { opacity: 0.88; }
 .intro-map { display: block; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-float); background: var(--map-out); text-decoration: none; position: relative; }
-.intro-map svg { display: block; width: 100%; height: auto; }
+/* 지도 높이를 화면 높이에 맞춰, 첫 화면에 '이렇게 둘러보세요' 카드까지 최대한 보이게 한다 */
+.intro-map { height: clamp(300px, calc(100svh - 540px), 560px); }
+.intro-map svg { display: block; width: 100%; height: 100%; }
 .intro-map .im-gu { fill: var(--map-land); stroke: var(--white); stroke-width: 1.5; }
 .intro-map .im-river { fill: none; stroke: var(--map-water); stroke-width: 2.5; stroke-linecap: round; }
 .intro-map .im-pin { fill: var(--pin); }
@@ -996,16 +998,16 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .stats div { padding: 18px 20px; display: grid; gap: 2px; background: var(--soft); border-radius: var(--radius); }
 .stats b { font-family: var(--font-display); font-weight: 400; font-size: 34px; color: var(--black); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stats span { font-size: 12px; color: var(--ink-3); }
-.howto { padding-block: 44px 8px; }
+.howto { padding-block: 20px 8px; }
 .howto h2 { font-weight: 700; font-size: 24px; margin: 0 0 4px; }
-.steps { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .step { display: grid; gap: 10px; align-content: start; }
 .step .n { font-size: 12px; font-weight: 500; color: var(--black); }
 .step h3 { font-size: 16px; font-weight: 500; margin: 0; }
 .step p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
 .step a { font-size: 13px; }
 .vis {
-  height: 112px; background: var(--soft); border-radius: var(--radius);
+  height: 84px; background: var(--soft); border-radius: var(--radius);
   display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; padding: 10px; pointer-events: none;
 }
 .vis .pin { width: 22px; height: 29px; }
@@ -1053,6 +1055,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 /* ================= 반응형 ================= */
 @media (max-width: 860px) {
   .intro-hero { grid-template-columns: 1fr; gap: 24px; padding-top: 8px; }
+  .intro-map { height: auto; }
+  .intro-map svg { height: auto; }
   .stats { grid-template-columns: 1fr 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
   :root { --gap: 10px; }
