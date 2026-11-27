@@ -538,7 +538,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   <div class="content">
     <h1 class="page-title">소개</h1>
     <div class="prose" style="margin-top:16px">
-      <p>대전관광여지도는 대전의 관광명소를 문화유산, 건축문화유산, 자연·공원, 과학·전시, 거리·골목, 체험·여가, 야경·전망의 일곱 가지 테마로 나누어, 보고 싶은 테마만 골라 지도에서 바로 확인할 수 있게 만든 사이트입니다.</p>
+      <p>대전관광여지도는 대전의 관광명소를 문화유산, 건축문화유산, 자연·공원, 과학·전시, 야경·전망의 다섯 가지 테마로 나누어, 보고 싶은 테마만 골라 지도에서 바로 확인할 수 있게 만든 사이트입니다.</p>
       <p>동구 · 중구 · 서구 · 유성구 · 대덕구 다섯 권역별로 명소를 모아 보여 주고, 가까운 명소끼리 걸어서 이어지는 도보 코스를 지도 위 경로로 제안합니다. 따로 검색하지 않아도 하루 나들이 동선을 쉽게 짤 수 있도록 하는 것이 목표입니다.</p>
     </div>
     <div class="cols">
@@ -555,7 +555,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
       <div><b>야경 · 전망 목록 · 소개 글</b><span>대전 야경 · 전망 명소 목록 8곳 중 6곳 (카페 제외, 보문산 전망타워 · 대청호 미호동 전망대 제외, 좌표 · 운영 정보 포함)</span></div>
       <div><b>자연 · 공원 목록 · 소개 글</b><span>대전 자연 · 공원 명소 목록 13곳 (좌표 · 운영 정보 포함)</span></div>
       <div><b>과학 · 전시 목록 · 소개 글</b><span>대전 과학 · 전시 명소 목록 18곳 (KAIST · 대학 박물관 포함, 좌표 · 운영 정보 포함)</span></div>
-      <div><b>다른 테마 명소</b><span>한국관광공사 TourAPI(공공데이터포털), 대전관광 홈페이지 (준비 중)</span></div>
+      <div><b>거리 · 골목 · 체험 · 여가</b><span>추후 업데이트 예정</span></div>
       <div><b>사진</b><span>위키미디어 공용(Wikimedia Commons)의 자유 라이선스 사진(CC BY · CC BY-SA · CC0 · 퍼블릭 도메인)을 크기만 줄여 사용합니다. 작가와 라이선스는 명소마다 사진 아래에 표시하고 원본 페이지로 연결합니다. 한국관광공사 TourAPI(한국관광콘텐츠랩)의 공공누리 제1 · 3유형 사진도 사용합니다. 제3유형(변경금지) 사진은 자르기 · 보정 없이 크기만 줄이고 사진 속 표기도 그대로 둡니다.</span></div>
       <div><b>명소 좌표 · 하천</b><span>© OpenStreetMap contributors (ODbL). 일부는 근사 좌표로 현장 확인 예정</span></div>
       <div><b>도보 코스</b><span>명소 사이 직선거리로 계산한 추정치. 직접 답사로 확인 예정</span></div>
@@ -583,7 +583,7 @@ window.PHOTOS = /*PHOTOS*/;
 </script>
 <script>
 (() => {
-  const B = window.PLACES, R = window.ROUTES, T = window.THEMES;
+  const B = window.PLACES, R = window.ROUTES, T = window.THEMES.filter(t => !t.hidden);
   const byId = Object.fromEntries(B.map(b => [b.id, b]));
   const TH = Object.fromEntries(T.map(t => [t.key, t]));
   const no = b => b.id.slice(1);

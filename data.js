@@ -3,14 +3,14 @@
 // 사진은 photos/<테마 key>/<명소 id>.jpg (두 번째 사진은 <id>-2.jpg). png · webp도 된다.
 // credit 에 사진 출처를 적으면 상세 화면에 표시된다. creditUrl 은 원본 사진 페이지(출처 링크). 두 번째 사진은 credit2 · creditUrl2.
 
-// 테마. key 는 사진 폴더 이름과 같다.
+// 테마. key 는 사진 폴더 이름과 같다. hidden: true 인 테마는 화면에 보이지 않는다(나중에 명소를 넣고 지우면 다시 보임).
 window.THEMES = [
   { key: "heritage", name: "문화유산", color: "#a4442a" },
   { key: "architecture", name: "건축문화유산", color: "#1f6f6b" },
   { key: "nature",   name: "자연·공원", color: "#4d7a3f" },
   { key: "science",  name: "과학·전시", color: "#2f6690" },
-  { key: "street",   name: "거리·골목", color: "#8f6212" },
-  { key: "activity", name: "체험·여가", color: "#7a4c98" },
+  { key: "street",   name: "거리·골목", color: "#8f6212", hidden: true },
+  { key: "activity", name: "체험·여가", color: "#7a4c98", hidden: true },
   { key: "night",    name: "야경·전망", color: "#2d3a63" }
 ];
 
