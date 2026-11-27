@@ -5,3 +5,6 @@ __pycache__/
 쓰레기/
 .claude/
 *.xlsx
+tourapi_key.txt
+.env
+tourapi_key*
