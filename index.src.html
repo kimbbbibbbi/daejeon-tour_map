@@ -183,14 +183,13 @@ img.pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: 
 .leaflet-control-attribution { font-size: 10px; background: rgba(255, 255, 255, 0.85) !important; }
 
 /* ================= 동선 패널 ================= */
-.route-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
 .route-info { padding: 12px 18px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; font-size: 13px; }
 .route-info .stats { margin: 0; display: flex; gap: 14px; color: var(--ink-3); font-size: 12px; }
 .stops { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
 .stops li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 12px 18px; position: relative; cursor: pointer; }
 .stops li:hover { background: var(--soft); }
 .stops li:not(:last-child)::after { content: ""; position: absolute; left: 32px; top: 40px; bottom: -12px; width: 1px; background: var(--rule); }
-.stops .npin { position: relative; z-index: 1; box-shadow: none; border-color: var(--black); }
+.stops .npin { position: relative; z-index: 1; box-shadow: none; border-color: var(--black); text-decoration: none; }
 .stops h3 { font-size: 15px; font-weight: 500; margin: 0; }
 .stops .addr { font-size: 12px; color: var(--ink-3); }
 
@@ -316,19 +315,40 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .stats div { padding: 18px 20px; display: grid; gap: 2px; background: var(--soft); border-radius: var(--radius); }
 .stats b { font-family: var(--font-display); font-weight: 400; font-size: 34px; color: var(--black); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stats span { font-size: 12px; color: var(--ink-3); }
-.howto { padding-block: 20px 8px; }
+.howto { padding-block: 14px 8px; }
 .howto h2 { font-weight: 700; font-size: 24px; margin: 0 0 4px; }
-.steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-.step { display: grid; gap: 10px; align-content: start; }
-.step .n { font-size: 12px; font-weight: 500; color: var(--black); }
-.step h3 { font-size: 16px; font-weight: 500; margin: 0; }
-.step p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+.steps { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 16px 20px; }
+.step { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.step .n { font-size: 12px; font-weight: 500; color: var(--black); line-height: 1.3; }
+.step h3 { font-size: 16px; font-weight: 500; margin: 2px 0 0; line-height: 1.35; }
+.step p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.6; }
 .step a { font-size: 13px; }
 .vis {
-  height: 84px; background: var(--soft); border-radius: var(--radius);
+  height: 150px; flex: none; overflow: hidden; background: var(--soft); border-radius: var(--radius);
   display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; padding: 10px; pointer-events: none;
 }
 .vis .pin { width: 22px; height: 29px; }
+.vis-col { flex-direction: column; flex-wrap: nowrap; gap: 8px; }
+.vis .mrow { display: flex; gap: 5px; flex-wrap: nowrap; justify-content: center; }
+.vis .chip { font-size: 11px; padding: 3px 9px; white-space: nowrap; }
+.vis .chip.t:not([aria-pressed="true"]) { background: var(--white); }
+.vis .gchip:not([aria-pressed="true"]) { background: var(--white); }
+.vis .mcluster { width: 30px; height: 30px; font-size: 13px; }
+.vis .mstamp { position: static; }
+.mini-det { background: var(--white); box-shadow: var(--shadow); border-radius: 8px; padding: 7px 11px; font-size: 11px; line-height: 1.4; width: 100%; max-width: 250px; display: grid; gap: 0; }
+.mini-det b { font-size: 12px; }
+.mini-det i { font-style: normal; font-weight: 700; color: var(--ink-3); margin-top: 2px; }
+.mini-det span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-det em { font-style: normal; color: var(--ink-3); }
+.mini-now { background: color-mix(in srgb, var(--black) 6%, var(--white)); box-shadow: var(--shadow); border-radius: 8px; padding: 7px 11px; font-size: 11px; width: 100%; max-width: 250px; display: grid; gap: 2px; }
+.mini-now b { font-size: 11px; } .mini-now b em { font-style: normal; color: var(--black); font-weight: 500; margin-left: 4px; }
+.mini-now span { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-visit { display: grid; gap: 7px; width: 100%; max-width: 250px; justify-items: start; }
+.mini-visit .vrow { display: flex; align-items: center; gap: 12px; width: 100%; }
+.mini-visit .vtxt { flex: 1; display: grid; gap: 5px; font-size: 11px; color: var(--ink-2); }
+.mini-visit .vtxt b { font-size: 12px; color: var(--ink); }
+.mini-visit .stamp.on { width: 42px; height: 42px; font-size: 12px; flex: none; }
+.mini-visit .badge { font-size: 11px; background: var(--white); }
 .mini-card { background: var(--white); box-shadow: var(--shadow); border-radius: 4px; padding: 6px 10px; font-size: 12px; line-height: 1.45; display: grid; }
 .mini-card span { color: var(--ink-3); }
 .mini-box { box-shadow: var(--shadow); border-radius: 8px; background: var(--white); font-size: 12px; padding: 8px 10px; line-height: 1.6; }
@@ -408,6 +428,119 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   .leaflet-popup-content { width: 270px !important; }
 }
 @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } .pgrid { grid-template-columns: 1fr 1fr; gap: 16px 12px; } }
+
+/* ---------- 방문 도장 ---------- */
+.pin, .npin { position: relative; }
+.pin.is-visited::after, .npin.is-visited::after {
+  content: ""; position: absolute; top: -4px; right: -5px; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--ink); box-shadow: 0 0 0 2px var(--white);
+}
+.pin.is-visited::before, .npin.is-visited::before {
+  content: ""; position: absolute; z-index: 1; top: -2px; right: -1px; width: 3px; height: 6px;
+  border: solid var(--white); border-width: 0 1.6px 1.6px 0; transform: rotate(45deg);
+}
+.npin.is-hl { transform: scale(1.45); background: var(--ink); border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--ink), var(--shadow-float); }
+.stamp {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 18px;
+  border: 1.5px solid var(--black); border-radius: 999px; background: var(--white); color: var(--black);
+  font: 600 14px/1 var(--font-body); cursor: pointer; white-space: nowrap; transition: background .15s ease;
+}
+/* 아직 안 찍은 빈 도장 자리 */
+.stamp::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 1.5px dashed currentColor; flex: none; }
+.stamp:hover { background: color-mix(in srgb, var(--black) 10%, var(--white)); }
+.stamp.on {
+  width: 56px; height: 56px; min-height: 0; padding: 0; border: 2px solid var(--black); border-radius: 50%;
+  color: var(--black); background: color-mix(in srgb, var(--black) 7%, var(--white));
+  font: 700 15px/1 var(--font-body); letter-spacing: 0.06em; transform: rotate(-12deg); flex: none;
+  box-shadow: inset 0 0 0 3px var(--white), inset 0 0 0 4px color-mix(in srgb, var(--black) 55%, transparent);
+}
+.stamp.on::before { display: none; }
+.hint { font-size: 13px; color: var(--ink-3); }
+.stamp.on + .hint .h-off, .stamp:not(.on) + .hint .h-on { display: none; }
+.vmark { font-style: normal; font-size: 11px; font-weight: 700; color: var(--black); border: 1.5px solid var(--black); border-radius: 999px; padding: 0 6px; margin-left: 6px; vertical-align: 1px; white-space: nowrap; }
+.card.is-visited h3::after { content: "방문"; font-size: 11px; font-weight: 700; color: var(--black); border: 1.5px solid var(--black); border-radius: 999px; padding: 0 6px; margin-left: 6px; vertical-align: 1px; }
+.pop-actions { justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; min-height: 64px; }
+.pop-actions a { min-height: 40px; display: inline-flex; align-items: center; border-radius: 999px; padding: 0 16px; }
+.pop-actions .stamp.on { width: 48px; height: 48px; font-size: 13px; }
+.pgrid > li { display: flex; flex-direction: column; gap: 10px; }
+.pgrid .pcard { flex: 1; }
+.vfoot { height: 56px; display: flex; align-items: center; gap: 10px; }
+.vfoot .stamp:not(.on) { width: 100%; }
+.d-stamp { margin: 4px 0 16px; min-height: 60px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.d-stamp .stamp:not(.on) { padding: 0 24px; }
+/* 진행 바 */
+.visit { margin: 8px 0 26px; padding: 16px 18px; background: var(--soft); border-radius: var(--radius); display: grid; gap: 10px; }
+.vhead { display: flex; justify-content: space-between; align-items: center; gap: 8px 12px; flex-wrap: wrap; }
+.vhead p { margin: 0; font-size: 14px; color: var(--ink-2); }
+.vhead b { font-size: 16px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.vreset { border: 0; background: var(--white); border-radius: 999px; padding: 6px 14px; font: 500 12px var(--font-body); color: var(--ink-2); cursor: pointer; box-shadow: inset 0 0 0 1px var(--rule); }
+.vreset:hover:not(:disabled) { color: var(--black); box-shadow: inset 0 0 0 1px var(--black); }
+.vreset:disabled { opacity: 0.5; cursor: default; }
+.vbar { height: 8px; border-radius: 99px; background: var(--soft-2); overflow: hidden; }
+.vbar i { display: block; height: 100%; background: var(--black); border-radius: inherit; transition: width .3s ease; }
+.vthemes { margin: 0; font-size: 12px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.vthemes span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.vthemes .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.vthemes b { color: var(--ink-2); font-weight: 500; font-variant-numeric: tabular-nums; }
+.vbadges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px 5px 6px; border-radius: 999px; background: var(--c); color: #fff; font-size: 12px; font-weight: 500; }
+.badge::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; }
+.badge.off { background: var(--white); color: var(--ink-3); opacity: 0.55; box-shadow: inset 0 0 0 1px var(--rule); }
+.badge.off::before { border-color: var(--rule); }
+/* 알림 · 확인 창 */
+.toast {
+  position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); z-index: 5000;
+  transform: translate(-50%, 16px); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+  background: var(--ink); color: var(--white); padding: 11px 20px; border-radius: 999px; font-size: 14px; font-weight: 500;
+  box-shadow: var(--shadow-float); max-width: calc(100vw - 32px); text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.cdlg { position: fixed; inset: 0; z-index: 5001; background: rgba(42, 36, 32, 0.35); display: grid; place-items: center; padding: 20px; }
+.cbox { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-float); padding: 22px 22px 16px; width: min(360px, 100%); }
+.cbox p { margin: 0 0 18px; font-size: 15px; line-height: 1.6; }
+.cact { display: flex; justify-content: flex-end; gap: 8px; }
+.cact .btn { border: 0; cursor: pointer; font: inherit; font-size: 14px; }
+/* 이 명소가 들어간 코스 */
+.inroutes { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.inroutes a { display: grid; gap: 3px; padding: 11px 14px; border-radius: var(--radius); background: var(--soft); text-decoration: none; height: 100%; }
+.inroutes a:hover { background: var(--soft-2); }
+.inroutes b { font-weight: 500; font-size: 14px; }
+.inroutes span { font-size: 12px; color: var(--ink-3); }
+.inr-empty { margin: 10px 0 0; padding: 12px 14px; background: var(--soft); border-radius: var(--radius); }
+/* 코스 목록 */
+.rscroll { overflow-y: auto; flex: 1; min-height: 0; overscroll-behavior: contain; }
+.rscroll .stops { overflow: visible; flex: none; }
+.rfilters { padding: 12px 18px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.rrow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.rrow .lbl { font-size: 12px; font-weight: 500; color: var(--ink-3); width: 56px; flex: none; }
+.rrow .chip { font-size: 13px; padding: 4px 11px; }
+.chip small { font-size: 11px; opacity: 0.7; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.rnow { padding: 12px 18px 14px; background: color-mix(in srgb, var(--black) 6%, var(--soft)); border-bottom: 1px solid var(--line); }
+.rnow h3 { margin: 0; font-size: 14px; font-weight: 700; display: flex; gap: 8px; align-items: baseline; }
+.rnow h3 span { font-size: 12px; font-weight: 500; color: var(--black); }
+.rcards { list-style: none; margin: 0; padding: 0; }
+.rcard { display: grid; gap: 3px; padding: 12px 18px; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; }
+.rcard:hover { background: var(--soft); }
+.rnow .rcards { display: grid; gap: 6px; margin-top: 8px; }
+.rnow .rcard { padding: 10px 12px; background: var(--white); border-radius: 10px; border: 0; }
+.rnow .rcard:hover { background: var(--white); box-shadow: var(--shadow); }
+.rcard .small { font-size: 12px; }
+.rcard b { font-size: 15px; font-weight: 500; }
+.badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+.bdg { font-size: 11px; line-height: 1.5; padding: 1px 7px; border-radius: 4px; background: var(--soft-2); color: var(--ink-2); white-space: nowrap; }
+.rnow .bdg { background: var(--soft); }
+.bdg.season { background: transparent; box-shadow: inset 0 0 0 1px var(--rule); color: var(--ink-3); }
+.bdg.v { background: color-mix(in srgb, var(--black) 10%, var(--white)); color: var(--black); font-weight: 500; }
+.rempty { padding: 28px 18px; color: var(--ink-3); font-size: 14px; }
+.rempty button { display: block; margin-top: 10px; border: 0; background: var(--soft-2); border-radius: 999px; padding: 5px 14px; cursor: pointer; font: inherit; font-size: 13px; }
+.rback { padding: 10px 18px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.route-info .rtitle { font-size: 16px; font-weight: 700; }
+.route-info .stats { flex-wrap: wrap; gap: 2px 14px; }
+@media (max-width: 520px) {
+  .rrow .lbl { width: 100%; }
+  .visit { padding: 14px; }
+  .vfoot .stamp:not(.on) { padding: 0 10px; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 
@@ -452,36 +585,44 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
     <ol class="steps">
       <li class="step">
         <span class="n">1단계</span>
-        <div class="vis" aria-hidden="true" id="vis-themes"></div>
-        <h3>테마 켜고 끄기</h3>
-        <p>지도 위쪽 테마 버튼을 여러 개 함께 눌러 보세요. 고른 테마의 명소만 지도에 남습니다. 다시 누르면 꺼지고, '전체'를 누르면 처음으로 돌아갑니다.</p>
-        <a class="u" href="#map">지도 열기</a>
+        <div class="vis vis-col" aria-hidden="true" id="vis-1"></div>
+        <h3>테마와 구 고르기</h3>
+        <p>지도 위쪽 테마 버튼을 여러 개 함께 눌러 보세요. 고른 테마의 명소만 남고, 구를 고르면 그 동네만 볼 수 있어요. '전체'를 누르면 처음으로 돌아갑니다.</p>
       </li>
       <li class="step">
         <span class="n">2단계</span>
-        <div class="vis" aria-hidden="true" id="vis-pins"></div>
+        <div class="vis" aria-hidden="true" id="vis-2"></div>
         <h3>지도에서 찾기</h3>
-        <p>핀 색이 곧 테마입니다. 핀에 마우스를 올리면 미리보기 카드가, 누르면 상세보기 버튼이 나옵니다. 숫자 원은 가까이 모인 명소 묶음이에요.</p>
-        <a class="u" href="#map">지도 열기</a>
+        <p>핀 색이 곧 테마예요. 핀을 누르면 미리보기 카드가 나오고, 숫자 원은 가까이 모인 명소 묶음입니다. '안 가 본 곳만 보기'를 켜면 아직 안 가 본 곳만 남아요.</p>
       </li>
       <li class="step">
         <span class="n">3단계</span>
-        <div class="vis" aria-hidden="true"><div class="mini-box">가까운 명소<br><b>우암사적공원</b> · 2.0km<br><b>회덕향교</b> · 2.5km</div></div>
-        <h3>자세히 보기</h3>
-        <p>상세 화면에서 사진, 주소, 소개와 함께 걸어서 갈 만한 가까운 명소를 볼 수 있어요.</p>
-        <a class="u" href="#h15">예시 보기</a>
+        <div class="vis" aria-hidden="true" id="vis-3"></div>
+        <h3>명소 자세히 보기</h3>
+        <p>사진, 주소, 소개와 함께 가까운 명소와 이 명소가 들어간 코스를 볼 수 있어요. 코스를 누르면 바로 그 코스로 넘어갑니다.</p>
       </li>
       <li class="step">
         <span class="n">4단계</span>
+        <div class="vis vis-col" aria-hidden="true" id="vis-4"></div>
+        <h3>코스 고르기</h3>
+        <p>맨 위에는 지금 계절에 가기 좋은 코스가 먼저 나와요. '도보'·'차량', 소요 시간, 종류를 골라 내게 맞는 코스만 볼 수 있어요.</p>
+      </li>
+      <li class="step">
+        <span class="n">5단계</span>
         <div class="vis" aria-hidden="true">
           <svg class="route-mini" viewBox="0 0 150 56"><path d="M18 40 L60 18 L100 34 L134 14" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/><g font-family="Jost, sans-serif" font-size="11" text-anchor="middle"><circle cx="18" cy="40" r="10"/><text x="18" y="44" fill="#fff">1</text><circle cx="60" cy="18" r="10"/><text x="60" y="22" fill="#fff">2</text><circle cx="100" cy="34" r="10"/><text x="100" y="38" fill="#fff">3</text><circle cx="134" cy="14" r="10"/><text x="134" y="18" fill="#fff">4</text></g></svg>
         </div>
         <h3>코스 따라가기</h3>
-        <p>여행 코스 화면에서 코스를 고르면, 들를 곳이 번호 순서대로 지도 위 경로로 이어져 나타나요.</p>
-        <a class="u" href="#routes">코스 보기</a>
+        <p>코스를 고르면 들를 곳이 번호 순서대로 지도 위 경로로 이어져요. 번호를 누르면 그 명소의 상세로 갈 수 있어요.</p>
+      </li>
+      <li class="step">
+        <span class="n">6단계</span>
+        <div class="vis" aria-hidden="true" id="vis-6"></div>
+        <h3>다녀온 곳 도장 찍기</h3>
+        <p>다녀온 명소에 '가 봤어요'를 눌러 도장을 찍어 보세요. 한 테마를 다 돌면 완주 배지를 받아요.</p>
       </li>
     </ol>
-    <p class="tip">휴대폰에서는 지도 아래 목록 손잡이를 위로 끌어 올리면 전체 목록이 펼쳐집니다.</p>
+    <p class="tip">휴대폰에서는 지도 아래 목록 손잡이를 위로 끌어 올리면 전체 목록이 펼쳐집니다.<br>방문 기록은 내 브라우저에만 저장돼요. 다른 기기에서는 보이지 않아요.</p>
   </section>
   <div data-slot="footer"></div>
 </section>
@@ -502,10 +643,17 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   <div class="map" id="map-route" role="region" aria-label="여행 코스 지도"></div>
   <aside class="panel" id="panel-route" aria-label="여행 코스">
     <button type="button" class="sheet-handle" aria-label="코스 펼치기 / 접기"></button>
-    <div class="panel-head"><h2>여행 코스</h2><span class="meta">테마 · 권역별 추천 동선</span></div>
-    <div class="route-tabs" id="route-tabs"></div>
-    <div class="route-info" id="route-info"></div>
-    <ol class="stops" id="stops"></ol>
+    <div class="panel-head"><h2>여행 코스</h2><span class="meta" id="route-meta"></span></div>
+    <div class="rscroll" id="route-list">
+      <div class="rfilters" id="rfilters" role="group" aria-label="코스 거르기 (여러 개 선택 가능)"></div>
+      <div id="rnow"></div>
+      <ul class="rcards" id="rcards"></ul>
+    </div>
+    <div class="rscroll" id="route-detail" hidden>
+      <div class="rback"><a class="u" href="#routes">← 코스 목록</a></div>
+      <div class="route-info" id="route-info"></div>
+      <ol class="stops" id="stops"></ol>
+    </div>
   </aside>
 </section>
 
@@ -520,6 +668,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 <!-- ===== 2. 명소 목록 ===== -->
 <section class="view frame" id="view-list" hidden>
   <div class="content">
+    <section class="visit" id="visit" aria-label="방문 기록"></section>
     <h1 class="page-title" id="list-title">명소 전체목록</h1>
     <p class="small" id="list-count"></p>
     <div class="filters-line">
@@ -544,7 +693,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
     <div class="cols">
       <div><h2>이런 분께</h2><ul><li>대전을 처음 찾는 여행자</li><li>주말 나들이 장소를 찾는 대전 시민</li><li>하루 코스를 짜고 싶은 당일치기 여행자</li></ul></div>
       <div><h2>할 수 있는 것</h2><ul><li>여러 테마를 동시에 켜고 끄며 지도 보기</li><li>테마 · 권역(구)별로 명소 골라 보기</li><li>가까운 명소와 추천 여행 코스 확인</li></ul></div>
-      <div><h2>만드는 원칙</h2><ul><li>맛집 · 숙박은 빼고 관광명소만</li><li>회원 기능 없이 누구나 바로 검색</li><li>공공데이터 · 공공누리 자료와 출처 표시</li></ul></div>
+      <div><h2>만드는 원칙</h2><ul><li>맛집 · 숙박은 빼고 관광명소만</li><li>회원 기능 없이 누구나 바로 검색</li><li>공공데이터 · 공공누리 자료와 출처 표시</li><li>방문 기록은 내 브라우저에만 저장되며 서버로 전송되지 않습니다. 브라우저 기록을 지우거나 다른 기기에서 접속하면 보이지 않습니다.</li></ul></div>
     </div>
     <h2 class="page-title" style="font-size:20px">한눈에 보기</h2>
     <div class="stats" id="about-stats"></div>
@@ -568,6 +717,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 
 <!-- ===== 3. 상세 창 ===== -->
 <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
@@ -599,6 +749,39 @@ window.PHOTOS = /*PHOTOS*/;
   const thumb = b => `<div class="thumb" style="--c:${col(b)}" aria-hidden="true"><b>${esc(tname(b))}</b><span>${no(b)}</span>${img(b)}</div>`;
   const ttags = b => allThemes(b).map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("");
   const themeCount = k => B.filter(b => allThemes(b).includes(k)).length;
+
+  // ---------- 방문 기록 (내 브라우저 localStorage에만 저장) ----------
+  const VKEY = "dtm-visited";
+  const visited = new Set((() => {
+    try { const a = JSON.parse(localStorage.getItem(VKEY) || "[]"); return Array.isArray(a) ? a.filter(id => byId[id]) : []; }
+    catch { return []; }
+  })());
+  const saveVisited = () => { try { localStorage.setItem(VKEY, JSON.stringify([...visited])); } catch {} };
+  const isV = id => visited.has(id);
+  const stampBtn = id => `<button type="button" class="stamp${isV(id) ? " on" : ""}" data-visit="${id}" aria-pressed="${isV(id)}" aria-label="${esc(byId[id].name)} ${isV(id) ? "방문 표시 취소" : "가 봤어요"}">${isV(id) ? "방문" : "가 봤어요"}</button>`;
+  const vmark = id => isV(id) ? `<em class="vmark">방문</em>` : "";
+  const themePlaces = k => B.filter(b => allThemes(b).includes(k));
+  const themeDone = k => { const l = themePlaces(k); return l.length > 0 && l.every(b => isV(b.id)); };
+  const routeVisited = r => r.stops.filter(isV).length;
+  const routeDone = r => r.stops.length > 0 && r.stops.every(isV);
+
+  // ---------- 코스 분류 (mode · time · area 글자에서 계산) ----------
+  const modeKind = r => { const m = r.mode || ""; return m.includes("도보") && !m.includes("차량") && !m.includes("대중교통") ? "walk" : "car"; };
+  const MODE = { walk: "도보", car: "차량" };
+  // "약 3시간 30분 ~ 4시간" 의 앞쪽(짧은 쪽)을 분으로
+  const startMin = r => { const m = String(r.time || "").match(/(\d+)\s*시간(?:\s*(\d+)\s*분)?/); return m ? +m[1] * 60 + +(m[2] || 0) : 0; };
+  const timeKind = r => { const n = startMin(r); return n <= 240 ? "le4" : n <= 300 ? "le5" : "gt5"; };
+  const TIME = { le4: "4시간 이내", le5: "4시간~5시간", gt5: "5시간 초과" };
+  const kindOf = r => String(r.area || "").split(" · ")[0];
+  const KIND = { "권역별": "권역", "테마별": "테마", "계절별": "계절" };
+  const hoursTxt = r => `${+(startMin(r) / 60).toFixed(1)}시간`;
+  // 지금 가기 좋은 코스: 접속한 달 기준 (?month=3 처럼 주소로 달을 바꿔 확인할 수 있음)
+  const MONTH = (() => { const q = +new URLSearchParams(location.search).get("month"); return q >= 1 && q <= 12 ? q : new Date().getMonth() + 1; })();
+  const NOW = MONTH >= 3 && MONTH <= 4 ? { ids: ["s-01", "s-02"], why: "벚꽃 철" }
+    : MONTH >= 10 && MONTH <= 11 ? { ids: ["s-03", "s-04"], why: "단풍 철" }
+    : MONTH === 12 || MONTH <= 2 ? { ids: ["t-05"], why: "겨울 밤 야경" }
+    : { ids: ["t-03"], why: "여름 숲·호수" };
+  const seasonTxt = r => kindOf(r) !== "계절별" ? "" : r.area.includes("봄") ? "3~4월 추천" : r.area.includes("가을") ? "10~11월 추천" : "";
   // all: '전체'가 선택된 상태라 이 테마도 지도에 보이는 중 → 눌린 칩과 같은 색으로 채운다
   const tchip = (t, on, attr, all = false) => { const ready = themeCount(t.key) > 0;
     return `<button type="button" class="chip t${all ? " is-all" : ""}" style="--c:${t.color}" ${attr} aria-pressed="${on}"${ready ? "" : ' disabled title="준비 중"'}><i class="dot"></i>${esc(t.name)}${ready ? "" : " · 준비 중"}</button>`; };
@@ -673,25 +856,27 @@ window.PHOTOS = /*PHOTOS*/;
 
   const PIN_D = "M13 0C5.8 0 0 5.6 0 12.6 0 22 13 34 13 34s13-12 13-21.4C26 5.6 20.2 0 13 0z";
   const PIN_SVG = `<svg viewBox="0 0 26 34" aria-hidden="true"><path d="${PIN_D}"/><circle cx="13" cy="12.5" r="4" fill="#fff"/></svg>`;
-  const pinIcon = b => L.divIcon({ className: "", html: `<div class="pin" style="--c:${col(b)}">${PIN_SVG}</div>`, iconSize: [26, 34], iconAnchor: [13, 34], tooltipAnchor: [14, -22], popupAnchor: [0, -34] });
-  const numIcon = n => L.divIcon({ className: "", html: `<div class="npin">${n}</div>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14] });
-  const cardHtml = b => `<div class="hc">${thumb(b)}<div class="hc-body"><b>${esc(b.name)}${b.alt ? `, ${esc(b.alt)}` : ""}</b><span>${esc(b.gu)} · ${allThemes(b).map(k => esc(TH[k].name)).join(" · ")}</span></div></div>`;
-  const popupHtml = b => `<div class="pop">${cardHtml(b)}<div class="pop-actions"><a href="#${b.id}">상세보기 →</a></div></div>`;
+  const pinIcon = b => L.divIcon({ className: "", html: `<div class="pin${isV(b.id) ? " is-visited" : ""}" style="--c:${col(b)}">${PIN_SVG}</div>`, iconSize: [26, 34], iconAnchor: [13, 34], tooltipAnchor: [14, -22], popupAnchor: [0, -34] });
+  const numIcon = (n, cls = "") => L.divIcon({ className: "", html: `<div class="npin ${cls}">${n}</div>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14] });
+  const cardHtml = b => `<div class="hc">${thumb(b)}<div class="hc-body"><b>${esc(b.name)}${b.alt ? `, ${esc(b.alt)}` : ""}${vmark(b.id)}</b><span>${esc(b.gu)} · ${allThemes(b).map(k => esc(TH[k].name)).join(" · ")}</span></div></div>`;
+  const popupHtml = b => `<div class="pop">${cardHtml(b)}<div class="pop-actions">${stampBtn(b.id)}<a href="#${b.id}">상세보기 →</a></div></div>`;
 
   // ---------- 1. 지도 페이지 ----------
   // themes: 켜 둔 테마(비어 있으면 전체). 홈의 테마 버튼과 같은 상태를 쓴다.
-  const st = { q: "", themes: new Set(), gu: "", active: null };
+  const st = { q: "", themes: new Set(), gu: "", active: null, unvisited: false };
   const filtersEl = document.getElementById("filters");
   const themeGroup = set => `<button type="button" class="chip" data-all aria-pressed="${!set.size}">전체</button>` + T.map(t => tchip(t, set.has(t.key), `data-t="${t.key}"`, !set.size)).join("");
   const renderFilters = () => filtersEl.innerHTML =
     `<div class="fgroup" role="group" aria-label="테마 (여러 개 선택 가능)"><span class="lbl">테마</span>${themeGroup(st.themes)}</div><span class="fsep"></span>` +
     `<div class="fgroup" role="group" aria-label="구"><span class="lbl">구</span>` +
-    [["", "전체"], ...GU.map(v => [v, v])].map(([v, t]) => `<button type="button" class="chip" data-gu="${v}" aria-pressed="${st.gu === v}">${t}</button>`).join("") + "</div>";
+    [["", "전체"], ...GU.map(v => [v, v])].map(([v, t]) => `<button type="button" class="chip" data-gu="${v}" aria-pressed="${st.gu === v}">${t}</button>`).join("") + "</div><span class=\"fsep\"></span>" +
+    `<div class="fgroup"><button type="button" class="chip" data-unv aria-pressed="${st.unvisited}">안 가 본 곳만 보기</button></div>`;
   // 테마 칩 누르기: 켜고 끄기를 여러 개 함께. '전체'는 모두 해제.
   const toggleTheme = (set, c) => { if (c.dataset.all != null) set.clear(); else if (c.dataset.t) set.has(c.dataset.t) ? set.delete(c.dataset.t) : set.add(c.dataset.t); };
   filtersEl.addEventListener("click", e => {
     const c = e.target.closest(".chip"); if (!c) return;
-    if (c.dataset.gu != null) st.gu = c.dataset.gu; else toggleTheme(st.themes, c);
+    if (c.dataset.unv != null) st.unvisited = !st.unvisited;
+    else if (c.dataset.gu != null) st.gu = c.dataset.gu; else toggleTheme(st.themes, c);
     themesChanged(); applyFilters(true);
   });
   // 사진 출처: 원본 페이지 주소가 있으면 링크로
@@ -714,8 +899,8 @@ window.PHOTOS = /*PHOTOS*/;
     }).addTo(mainMap);
     B.forEach(b => {
       const mk = L.marker([b.lat, b.lng], { icon: pinIcon(b), title: b.name, alt: b.name, riseOnHover: true });
-      mk.bindTooltip(cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 });
-      mk.bindPopup(popupHtml(b), { maxWidth: 320, autoPanPaddingTopLeft: [mobile() ? 10 : 420, 140] });
+      mk.bindTooltip(() => cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 });
+      mk.bindPopup(() => popupHtml(b), { maxWidth: 320, autoPanPaddingTopLeft: [mobile() ? 10 : 420, 140] });
       mk.on("click", () => { mk.closeTooltip(); select(b.id, false); });
       mk.on("popupopen", () => mk.closeTooltip());
       mk.on("mouseover", () => mark(b.id, "is-hover", true));
@@ -740,10 +925,10 @@ window.PHOTOS = /*PHOTOS*/;
   const cardsEl = document.getElementById("cards");
   function applyFilters(refit) {
     if (!mainMap) return;
-    const shown = B.filter(b => matches(b, st));
+    const shown = B.filter(b => matches(b, st) && (!st.unvisited || !isV(b.id)));
     document.getElementById("count").textContent = `${shown.length}곳 / 전체 ${B.length}곳`;
     cardsEl.innerHTML = shown.length ? shown.map(b => `
-      <li class="card" data-id="${b.id}" tabindex="0">
+      <li class="card${isV(b.id) ? " is-visited" : ""}" data-id="${b.id}" tabindex="0">
         ${thumb(b)}
         <div style="min-width:0">
           <h3>${esc(b.name)}</h3>${b.alt ? `<div class="alt">${esc(b.alt)}</div>` : ""}
@@ -759,7 +944,7 @@ window.PHOTOS = /*PHOTOS*/;
     paint();
   }
   cardsEl.addEventListener("click", e => {
-    if (e.target.id === "reset") { st.q = ""; st.gu = ""; st.themes.clear(); document.getElementById("q").value = ""; themesChanged(); applyFilters(true); return; }
+    if (e.target.id === "reset") { st.q = ""; st.gu = ""; st.themes.clear(); st.unvisited = false; document.getElementById("q").value = ""; themesChanged(); applyFilters(true); return; }
     const li = e.target.closest(".card"); if (li) select(li.dataset.id, true);
   });
   cardsEl.addEventListener("keydown", e => { const li = e.target.closest(".card"); if (li && e.key === "Enter") select(li.dataset.id, true); });
@@ -786,7 +971,7 @@ window.PHOTOS = /*PHOTOS*/;
   function paint() {
     B.forEach(b => {
       const el = markers[b.id]?.getElement()?.querySelector(".pin");
-      if (el) el.classList.toggle("is-active", st.active === b.id);
+      if (el) { el.classList.toggle("is-active", st.active === b.id); el.classList.toggle("is-visited", isV(b.id)); }
       markers[b.id]?.setZIndexOffset(st.active === b.id ? 1000 : 0);
     });
     cardsEl.querySelectorAll(".card").forEach(li => li.classList.toggle("is-active", li.dataset.id === st.active));
@@ -858,8 +1043,24 @@ window.PHOTOS = /*PHOTOS*/;
   ].map(([n, label, c]) => `<div><b${c ? ` style="color:${c}"` : ""}>${n}</b><span>${esc(label)}</span></div>`).join("");
   document.getElementById("sample-note").textContent = T.filter(t => themeCount(t.key)).map(t => `${t.name} ${themeCount(t.key)}곳`).join(" · ") + (T.some(t => !themeCount(t.key)) ? " · 다른 테마는 준비 중" : "");
   function renderIntro() {
-    document.getElementById("vis-themes").innerHTML = T.slice(0, 4).map((t, i) => `<span class="chip t" style="--c:${t.color}" aria-pressed="${i < 2}"><i class="dot"></i>${esc(t.name)}</span>`).join("");
-    document.getElementById("vis-pins").innerHTML = T.map(t => `<div class="pin" style="--c:${t.color}">${PIN_SVG}</div>`).join("");
+    // 이렇게 둘러보세요: 미니 화면은 데이터에서 읽어 그린다
+    const $ = id => document.getElementById(id);
+    $("vis-1").innerHTML = `<div class="mrow">${T.slice(0, 3).map((t, i) => `<span class="chip t" style="--c:${t.color}" aria-pressed="${i !== 1}"><i class="dot"></i>${esc(t.name)}</span>`).join("")}</div>
+      <div class="mrow">${["전체", ...GU.slice(0, 3)].map((g, i) => `<span class="chip gchip" aria-pressed="${i === 2}">${g}</span>`).join("")}</div>`;
+    $("vis-2").innerHTML = T.slice(0, 3).map(t => `<div class="pin" style="--c:${t.color}">${PIN_SVG}</div>`).join("") +
+      `<div class="cluster mcluster">${B.filter(b => b.gu === GU[1]).length}</div>` +
+      T.slice(3).map((t, i) => `<div class="pin${i === 0 ? " is-visited" : ""}" style="--c:${t.color}">${PIN_SVG}</div>`).join("");
+    const ex = byId.a22 || B[0];
+    const exNear = B.filter(x => x !== ex).map(x => [x, dist(ex, x)]).sort((p, q) => p[1] - q[1]).slice(0, 2);
+    const exR = R.filter(r => r.stops.includes(ex.id)).slice(0, 2);
+    $("vis-3").innerHTML = `<div class="mini-det"><b>${esc(ex.name)}</b><i>가까운 명소</i>${exNear.map(([x, m]) => `<span>${esc(x.name)} <em>· ${fmtDist(m)}</em></span>`).join("")}
+      <i>이 명소가 들어간 코스</i>${exR.map(r => `<span>${esc(r.name)} <em>· ${r.stops.indexOf(ex.id) + 1}번째</em></span>`).join("") || "<span><em>아직 없음</em></span>"}</div>`;
+    const nowR = R.find(r => r.id === NOW.ids[0]);
+    $("vis-4").innerHTML = `<div class="mini-now"><b>지금 가기 좋은 코스<em>${NOW.why}</em></b><span>${esc(nowR ? nowR.name : "")}</span></div>
+      <div class="mrow"><span class="chip" aria-pressed="true">${MODE.walk}</span><span class="chip" aria-pressed="false">${MODE.car}</span><span class="chip" aria-pressed="true">${TIME.le4}</span></div>`;
+    const exN = Math.min(12, B.length), exT = T.find(t => themeCount(t.key)) || T[0];
+    $("vis-6").innerHTML = `<div class="mini-visit"><div class="vrow"><span class="stamp on">방문</span><span class="vtxt"><b>${B.length}곳 중 ${exN}곳 방문</b><span class="vbar"><i style="width:${Math.round(exN / B.length * 100)}%"></i></span></span></div>
+      <span class="badge off" style="--c:${exT.color}">${esc(exT.name)} 완주</span></div>`;
     // 구 경계 · 하천 · 명소 위치를 간단한 SVG 지도로 그린다
     const all = window.DISTRICTS.features.flatMap(f => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates).flat(1)).flat(1);
     const lons = all.map(c => c[0]), lats = all.map(c => c[1]);
@@ -894,6 +1095,7 @@ window.PHOTOS = /*PHOTOS*/;
     let rows = B.filter(b => matches(b, s));
     if (lsort.value === "name") rows = [...rows].sort((a, b) => a.name.localeCompare(b.name, "ko"));
     lthemes.innerHTML = themeGroup(lst.themes);
+    renderVisit();
     const names = T.filter(t => lst.themes.has(t.key)).map(t => t.name);
     document.getElementById("list-title").textContent = names.length ? names.join(" · ") : "명소 전체목록";
     document.getElementById("list-count").textContent = `${rows.length}곳${s.gu ? ` · ${s.gu}` : ""}`;
@@ -901,7 +1103,7 @@ window.PHOTOS = /*PHOTOS*/;
       <li><a class="pcard" href="#${b.id}">
         <div class="ph" style="--c:${col(b)}">${esc(tname(b))}<span>${no(b)}</span>${img(b)}</div>
         <div><h2>${esc(b.name)}</h2><div class="meta">${esc(b.addr)}</div><div class="tags">${ttags(b)}<span class="tag">${esc(b.gu)}</span></div></div>
-      </a></li>`).join("")
+      </a><div class="vfoot">${stampBtn(b.id)}<span class="hint"><span class="h-on">다녀온 곳</span></span></div></li>`).join("")
       || '<li class="empty">조건에 맞는 명소가 없습니다.</li>';
   }
   [lq, lgu, lsort].forEach(el => el.addEventListener("input", renderTable));
@@ -915,6 +1117,8 @@ window.PHOTOS = /*PHOTOS*/;
   const detailEl = document.getElementById("detail");
   let detailMap, lastView = "map";
   const BACK = { intro: "홈", map: "지도", list: "명소 목록", routes: "여행 코스", about: "소개" };
+  // 코스 상세는 #route-<코스 id>, 나머지는 화면 이름 그대로
+  const viewOf = h => h.startsWith("route-") ? "routes" : h;
   function openDetail(id) {
     const b = byId[id], i = B.indexOf(b);
     const prev = B[(i - 1 + B.length) % B.length], next = B[(i + 1) % B.length];
@@ -928,10 +1132,11 @@ window.PHOTOS = /*PHOTOS*/;
     });
     detailEl.innerHTML = `
       <div class="frame">
-        <div class="detail-bar"><a href="#${lastView}" class="u">← ${BACK[lastView]}</a><button type="button" id="d-close" aria-label="닫기">닫기 ✕</button></div>
+        <div class="detail-bar"><a href="#${lastView}" class="u">← ${BACK[viewOf(lastView)]}</a><button type="button" id="d-close" aria-label="닫기">닫기</button></div>
         <div class="d-grid${photos.length ? "" : " no-photo"}">
           <div>
             <p class="d-cat"><span class="k" style="color:${col(b)}">${allThemes(b).map(k => esc(TH[k].name)).join(" · ")}${[b.designation, b.grade, b.year && (/^\d+$/.test(b.year) ? b.year + "년" : b.year)].filter(Boolean).map(x => ` · ${esc(x)}`).join("")}</span><br><span id="d-title" style="font-size:17px">${esc(b.name)}</span>${b.alt ? `<br>${esc(b.alt)}` : ""}</p>
+            <div class="d-stamp">${stampBtn(b.id)}<span class="hint"><span class="h-off">다녀왔다면 도장을 찍어 보세요</span><span class="h-on">다녀온 곳이에요. 다시 누르면 취소돼요</span></span></div>
             <div class="d-box">
               <div>대전광역시 ${esc(b.addr)}<br>No. ${no(b)} · ${esc(b.gu)}</div>
               <a href="#map" data-focus="${b.id}">지도 보기</a>
@@ -943,7 +1148,7 @@ window.PHOTOS = /*PHOTOS*/;
         </div>
         <div class="d-tags">
           <span>${allThemes(b).map(k => `<a class="u" href="#theme-${k}">+${esc(TH[k].name)}</a>`).join(" ")}</span>
-          <span><a class="u" href="#list">#${esc(b.gu)}</a>${routes.map(r => `<a class="u" href="#routes" data-route="${r.id}">#${esc(r.name)}</a>`).join("")}</span>
+          <span><a class="u" href="#list">#${esc(b.gu)}</a>${routes.map(r => `<a class="u" href="#route-${r.id}" data-route="${r.id}" data-hl="${b.id}">#${esc(r.name)}</a>`).join("")}</span>
         </div>
         <div class="d-bottom">
           <div class="d-map"><div class="map" id="map-detail"></div></div>
@@ -960,6 +1165,9 @@ window.PHOTOS = /*PHOTOS*/;
         <h2 class="d-sub">가까운 명소</h2>
         <p class="small" style="margin:2px 0 0">직선거리 기준, 걷는 시간은 추정치입니다.</p>
         <ul class="near">${near.map(([x, m]) => `<li><a href="#${x.id}">${thumb(x)}<span><b>${esc(x.name)}</b><small>${fmtDist(m)} · ${m <= 3000 ? `걸어서 약 ${fmtMin(walkMin(m))}` : "차로 이동 권장"}</small></span></a></li>`).join("")}</ul>
+        <h2 class="d-sub">이 명소가 들어간 코스</h2>
+        ${routes.length ? `<ul class="inroutes">${routes.map(r => `<li><a href="#route-${r.id}" data-route="${r.id}" data-hl="${b.id}"><b>${esc(r.name)}</b><span>${MODE[modeKind(r)]} · ${r.dist}km · ${r.stops.indexOf(id) + 1}번째로 들르는 곳</span></a></li>`).join("")}</ul>`
+          : `<p class="small inr-empty">아직 이 명소가 들어간 코스가 없어요. 가까운 명소부터 둘러보세요.</p>`}
         <nav class="pager" aria-label="이전 다음 명소">
           <a href="#${prev.id}"><span>← 이전</span>${esc(prev.name)}</a>
           <a href="#${next.id}"><span>다음 →</span>${esc(next.name)}</a>
@@ -983,54 +1191,145 @@ window.PHOTOS = /*PHOTOS*/;
   detailEl.addEventListener("click", e => {
     if (e.target.id === "d-close") { location.hash = lastView; return; }
     const f = e.target.closest("[data-focus]"); if (f) pendingFocus = f.dataset.focus;
-    const r = e.target.closest("[data-route]"); if (r) curRoute = r.dataset.route;
+    const r = e.target.closest("[data-route]"); if (r) hlFor = { route: r.dataset.route, id: r.dataset.hl };
   });
   addEventListener("keydown", e => { if (e.key === "Escape" && !detailEl.hidden) location.hash = lastView; });
   let pendingFocus = null;
 
   // ---------- 4. 여행 코스 ----------
-  let routeMap, routeLayer, curRoute = R[0]?.id;
-  function renderRoute() {
-    if (!routeMap) routeMap = baseMap("map-route");
-    if (!R.length) {
-      // 아직 코스가 없으면 안내만 띄우고 지도는 전체 명소에 맞춘다
-      document.getElementById("route-tabs").innerHTML = "";
-      document.getElementById("route-info").innerHTML = `<span>여행 코스를 준비하고 있습니다.</span><span class="small">테마별 명소가 모이면 추천 여행 코스를 올릴 예정입니다. 지금은 <a class="u" href="#map">지도</a>에서 명소를 둘러보세요.</span>`;
-      document.getElementById("stops").innerHTML = "";
-      refreshMap(routeMap); [150, 800].forEach(t => setTimeout(() => refreshMap(routeMap), t));
-      if (!routeLayer) routeLayer = L.featureGroup(B.map(b => L.marker([b.lat, b.lng], { icon: pinIcon(b), title: b.name }).bindTooltip(cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 }).bindPopup(popupHtml(b), { maxWidth: 320 }))).addTo(routeMap);
-      const top = document.getElementById("topbar").getBoundingClientRect().bottom + 24;
-      routeMap.fitBounds(routeLayer.getBounds(), mobile() ? { paddingTopLeft: [30, top], paddingBottomRight: [30, 170] } : { paddingTopLeft: [440, top], paddingBottomRight: [60, 60] });
-      return;
-    }
-    const r = R.find(x => x.id === curRoute), stops = r.stops.map(id => byId[id]);
-    const legs = stops.slice(1).map((b, k) => dist(stops[k], b)), total = legs.reduce((a, m) => a + m, 0);
-    const mins = legs.reduce((a, m) => a + walkMin(m), 0);
-    document.getElementById("route-tabs").innerHTML = R.map(x => `<button type="button" class="chip" data-r="${x.id}" aria-pressed="${x.id === r.id}">${esc(x.name)}</button>`).join("");
-    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><span class="tags" style="margin:0">${r.themes.map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("")}</span><span>${esc(r.note)}</span><span class="stats"><span>${stops.length}곳</span>${r.dist ? `<span>약 ${r.dist}km</span><span>${esc(r.mode || "")}</span><span>${esc(r.time || "")}</span>` : `<span>약 ${fmtDist(total * 1.3)}</span><span>걸어서 약 ${fmtMin(mins)}</span><span>관람 시간 제외</span>`}</span>`;
-    document.getElementById("stops").innerHTML = stops.map((b, k) => `
-      <li data-id="${b.id}"><span class="npin">${k + 1}</span><div style="min-width:0"><h3>${esc(b.name)}</h3><div class="addr">${esc(tname(b))} · ${esc(b.addr)}${!r.dist && k < legs.length ? ` · 다음까지 약 ${fmtMin(walkMin(legs[k]))}` : ""}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
-    if (routeLayer) routeMap.removeLayer(routeLayer);
-    const pts = stops.map(b => [b.lat, b.lng]);
-    routeLayer = L.featureGroup([
-      L.polyline(pts, { color: getComputedStyle(document.documentElement).getPropertyValue("--black").trim(), weight: 2.5, dashArray: "2 7", lineCap: "round" }),
-      ...stops.map((b, k) => L.marker([b.lat, b.lng], { icon: numIcon(k + 1), title: b.name })
-        .bindTooltip(cardHtml(b), { direction: "right", className: "hovercard", opacity: 1, offset: [14, 0] })
-        .bindPopup(popupHtml(b), { maxWidth: 320 }))
-    ]).addTo(routeMap);
-    refreshMap(routeMap); [150, 800].forEach(t => setTimeout(() => refreshMap(routeMap), t));
+  let routeMap, routeLayer, curRoute = null, hlFor = null, stopMk = {};
+  const rf = { mode: new Set(), time: new Set(), kind: new Set() };
+  // 줄끼리는 AND, 같은 줄 안에서는 OR
+  const rMatch = r => (!rf.mode.size || rf.mode.has(modeKind(r))) && (!rf.time.size || rf.time.has(timeKind(r))) && (!rf.kind.size || rf.kind.has(kindOf(r)));
+  const rCard = r => `<li><a class="rcard" href="#route-${r.id}"><span class="small">${esc(r.area)}</span><b>${esc(r.name)}</b><span class="badges">
+    <span class="bdg">${MODE[modeKind(r)]}</span><span class="bdg">${hoursTxt(r)}</span><span class="bdg">${r.stops.length}곳</span>
+    ${seasonTxt(r) && !NOW.ids.includes(r.id) ? `<span class="bdg season">${seasonTxt(r)}</span>` : ""}
+    <span class="bdg v">${routeVisited(r)}/${r.stops.length}곳 방문</span></span></a></li>`;
+  const routeFit = pts => {
     const top = document.getElementById("topbar").getBoundingClientRect().bottom + 24;
     routeMap.fitBounds(L.latLngBounds(pts), { ...(mobile() ? { paddingTopLeft: [30, top], paddingBottomRight: [30, 170] } : { paddingTopLeft: [440, top], paddingBottomRight: [60, 60] }), maxZoom: 16 });
+  };
+  function renderRoute(refit = true) {
+    if (!routeMap) routeMap = baseMap("map-route");
+    const r = curRoute && R.find(x => x.id === curRoute);
+    document.getElementById("route-list").hidden = !!r;
+    document.getElementById("route-detail").hidden = !r;
+    r ? renderRouteDetail(r, refit) : renderRouteList(refit);
+    if (refit) { refreshMap(routeMap); [150, 800].forEach(t => setTimeout(() => refreshMap(routeMap), t)); }
   }
-  document.getElementById("route-tabs").addEventListener("click", e => { const c = e.target.closest("[data-r]"); if (c) { curRoute = c.dataset.r; renderRoute(); } });
+  function renderRouteList(refit) {
+    const rows = [
+      ["mode", "이동 방식", Object.keys(MODE).map(k => [k, MODE[k], R.filter(r => modeKind(r) === k).length])],
+      ["time", "소요 시간", Object.keys(TIME).map(k => [k, TIME[k], R.filter(r => timeKind(r) === k).length])],
+      ["kind", "종류", Object.keys(KIND).map(k => [k, KIND[k], R.filter(r => kindOf(r) === k).length])]
+    ];
+    document.getElementById("rfilters").innerHTML = rows.map(([g, label, opts]) => `<div class="rrow"><span class="lbl">${label}</span>${opts.map(([k, t, n]) =>
+      `<button type="button" class="chip" data-g="${g}" data-k="${k}" aria-pressed="${rf[g].has(k)}">${esc(t)}<small>${n}</small></button>`).join("")}</div>`).join("");
+    const list = R.filter(rMatch), now = NOW.ids.map(id => R.find(r => r.id === id)).filter(r => r && rMatch(r));
+    document.getElementById("route-meta").textContent = `${list.length}개 코스 / 전체 ${R.length}개`;
+    document.getElementById("rnow").innerHTML = now.length ? `<section class="rnow" aria-label="지금 가기 좋은 코스"><h3>지금 가기 좋은 코스<span>${MONTH}월 · ${NOW.why}</span></h3><ul class="rcards">${now.map(rCard).join("")}</ul></section>` : "";
+    document.getElementById("rcards").innerHTML = list.length ? list.map(rCard).join("")
+      : `<li class="rempty">조건에 맞는 코스가 없어요<button type="button" id="rreset">조건 초기화</button></li>`;
+    if (routeLayer) routeMap.removeLayer(routeLayer);
+    // 목록에서는 걸러진 코스들이 들르는 명소를 모두 보여 준다
+    const ids = [...new Set(list.flatMap(r => r.stops))].map(id => byId[id]);
+    routeLayer = L.featureGroup(ids.map(b => L.marker([b.lat, b.lng], { icon: pinIcon(b), title: b.name })
+      .bindTooltip(() => cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 }).bindPopup(() => popupHtml(b), { maxWidth: 320 }))).addTo(routeMap);
+    if (refit) routeFit(ids.length ? ids.map(b => [b.lat, b.lng]) : B.map(b => [b.lat, b.lng]));
+  }
+  function renderRouteDetail(r, refit) {
+    const stops = r.stops.map(id => byId[id]);
+    const hl = hlFor && hlFor.route === r.id ? hlFor.id : null;
+    document.getElementById("route-meta").textContent = `${routeVisited(r)}/${stops.length}곳 방문`;
+    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><b class="rtitle">${esc(r.name)}</b>
+      <span class="badges" style="margin:0"><span class="bdg">${MODE[modeKind(r)]}</span><span class="bdg">${hoursTxt(r)}</span><span class="bdg">${stops.length}곳</span>${seasonTxt(r) && !NOW.ids.includes(r.id) ? `<span class="bdg season">${seasonTxt(r)}</span>` : ""}<span class="bdg v">${routeVisited(r)}/${stops.length}곳 방문</span></span>
+      <span class="tags" style="margin:0">${r.themes.map(k => TH[k] ? `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>` : "").join("")}</span><span>${esc(r.note)}</span>
+      <span class="stats"><span>약 ${r.dist}km</span><span>${esc(r.mode || "")}</span><span>${esc(r.time || "")}</span></span>`;
+    document.getElementById("stops").innerHTML = stops.map((b, k) => `
+      <li data-id="${b.id}"><a class="npin${isV(b.id) ? " is-visited" : ""}" href="#${b.id}" aria-label="${k + 1}번 ${esc(b.name)} 상세보기">${k + 1}</a><div style="min-width:0"><h3>${esc(b.name)}${vmark(b.id)}</h3><div class="addr">${esc(tname(b))} · ${esc(b.addr)}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
+    const cls = (b, k) => [b.id === hl ? "is-hl" : "", isV(b.id) ? "is-visited" : ""].join(" ");
+    if (!refit && routeLayer && routeLayer._rid === r.id) { stops.forEach((b, k) => stopMk[k]?.setIcon(numIcon(k + 1, cls(b, k)))); return; }
+    if (routeLayer) routeMap.removeLayer(routeLayer);
+    const pts = stops.map(b => [b.lat, b.lng]);
+    stopMk = {};
+    routeLayer = L.featureGroup([
+      L.polyline(pts, { color: getComputedStyle(document.documentElement).getPropertyValue("--black").trim(), weight: 2.5, dashArray: "2 7", lineCap: "round" }),
+      ...stops.map((b, k) => stopMk[k] = L.marker([b.lat, b.lng], { icon: numIcon(k + 1, cls(b, k)), title: b.name, zIndexOffset: b.id === hl ? 1000 : 0 })
+        .bindTooltip(() => cardHtml(b), { direction: "right", className: "hovercard", opacity: 1, offset: [14, 0] })
+        .bindPopup(() => popupHtml(b), { maxWidth: 320 }))
+    ]).addTo(routeMap);
+    routeLayer._rid = r.id;
+    routeFit(pts);
+  }
+  document.getElementById("rfilters").addEventListener("click", e => {
+    const c = e.target.closest("[data-g]"); if (!c) return;
+    const set = rf[c.dataset.g]; set.has(c.dataset.k) ? set.delete(c.dataset.k) : set.add(c.dataset.k);
+    renderRoute(true);
+  });
+  document.getElementById("rcards").addEventListener("click", e => {
+    if (e.target.id !== "rreset") return;
+    Object.values(rf).forEach(x => x.clear()); renderRoute(true);
+  });
   document.getElementById("stops").addEventListener("click", e => {
-    if (e.target.closest("a")) return;
+    if (e.target.closest("a, button")) return;
     const li = e.target.closest("li[data-id]"); if (!li) return;
     const b = byId[li.dataset.id];
     if (mobile()) setSheet("peek");
     routeMap.flyTo([b.lat, b.lng], 16, { duration: 0.6 });
-    routeLayer.eachLayer(l => { if (l.options.title === b.name) setTimeout(() => l.openPopup(), 650); });
+    Object.values(stopMk).forEach(l => { if (l.options.title === b.name) setTimeout(() => l.openPopup(), 650); });
   });
+
+  // ---------- 방문 기록 화면 ----------
+  function renderVisit() {
+    const n = B.filter(b => isV(b.id)).length, pct = Math.round(n / B.length * 100);
+    const ts = T.filter(t => themeCount(t.key));
+    document.getElementById("visit").innerHTML = `
+      <div class="vhead"><p><b>${B.length}곳 중 ${n}곳 방문</b> (${pct}%)</p><button type="button" class="vreset" id="vreset"${n ? "" : " disabled"}>기록 초기화</button></div>
+      <div class="vbar" role="progressbar" aria-label="방문한 명소" aria-valuemin="0" aria-valuemax="${B.length}" aria-valuenow="${n}"><i style="width:${pct}%"></i></div>
+      <p class="vthemes">${ts.map(t => `<span style="--c:${t.color}"><i class="dot"></i>${esc(t.name)} <b>${themePlaces(t.key).filter(b => isV(b.id)).length}/${themeCount(t.key)}</b></span>`).join("")}</p>
+      <div class="vbadges" aria-label="완주 배지">${ts.map(t => `<span class="badge${themeDone(t.key) ? "" : " off"}" style="--c:${t.color}" title="${themeDone(t.key) ? "받은 배지" : "아직 못 받은 배지"}">${esc(t.name)} 완주</span>`).join("")}</div>`;
+  }
+  // 화면 아래 잠깐 뜨는 알림(3초). 여러 개면 차례로.
+  const toastQ = []; let toastOn = false;
+  const toast = m => { toastQ.push(m); if (!toastOn) nextToast(); };
+  function nextToast() {
+    const m = toastQ.shift(), el = document.getElementById("toast");
+    if (!m) { toastOn = false; return; }
+    toastOn = true; el.textContent = m; el.classList.add("show");
+    setTimeout(() => { el.classList.remove("show"); setTimeout(nextToast, 300); }, 3000);
+  }
+  // 사이트 안 확인 창
+  function confirmBox(msg, okLabel, onOk) {
+    const back = document.activeElement, d = document.createElement("div");
+    d.className = "cdlg";
+    d.innerHTML = `<div class="cbox" role="alertdialog" aria-modal="true" aria-labelledby="cmsg"><p id="cmsg">${esc(msg)}</p><div class="cact"><button type="button" class="btn" data-c="no">취소</button><button type="button" class="btn primary" data-c="ok">${esc(okLabel)}</button></div></div>`;
+    document.body.append(d);
+    d.querySelector('[data-c="no"]').focus();
+    const close = () => { d.remove(); back?.focus?.(); };
+    d.addEventListener("click", e => { if (e.target === d || e.target.dataset.c === "no") close(); else if (e.target.dataset.c === "ok") { close(); onOk(); } });
+    d.addEventListener("keydown", e => { if (e.key === "Escape") { e.stopPropagation(); close(); } });
+  }
+  // 바뀐 방문 기록을 열려 있는 모든 화면에 반영
+  function refreshVisits() {
+    document.querySelectorAll("[data-visit]").forEach(el => { const t = document.createElement("template"); t.innerHTML = stampBtn(el.dataset.visit); el.replaceWith(t.content.firstChild); });
+    renderVisit();
+    if (!document.getElementById("view-list").hidden) renderTable();
+    if (mainMap) { if (st.unvisited) applyFilters(false); else { cardsEl.querySelectorAll(".card").forEach(li => li.classList.toggle("is-visited", isV(li.dataset.id))); paint(); } }
+    if (routeMap && !document.getElementById("view-routes").hidden) renderRoute(false);
+  }
+  function toggleVisit(id) {
+    const tBefore = new Set(T.filter(t => themeDone(t.key)).map(t => t.key)), rBefore = new Set(R.filter(routeDone).map(r => r.id));
+    isV(id) ? visited.delete(id) : visited.add(id);
+    saveVisited(); refreshVisits();
+    R.filter(r => routeDone(r) && !rBefore.has(r.id)).forEach(r => toast(`${r.name} 완주!`));
+    T.filter(t => themeDone(t.key) && !tBefore.has(t.key)).forEach(t => toast(`${t.name} 완주 배지를 받았어요`));
+  }
+  // 지도 팝업은 클릭을 막으므로 캡처 단계에서 받는다
+  document.addEventListener("click", e => {
+    const v = e.target.closest("[data-visit]");
+    if (v) { e.preventDefault(); const id = v.dataset.visit, box = v.closest(".pop, .d-stamp, .vfoot, li"); toggleVisit(id); (box?.isConnected ? box : document).querySelector(`[data-visit="${id}"]`)?.focus(); return; }
+    if (e.target.id === "vreset") confirmBox("방문 기록을 모두 지울까요? 되돌릴 수 없어요.", "지우기", () => { visited.clear(); saveVisited(); refreshVisits(); });
+  }, true);
 
   // ---------- 라우팅 ----------
   let introDone = false;
@@ -1057,7 +1356,7 @@ window.PHOTOS = /*PHOTOS*/;
   function route() {
     const h = location.hash.slice(1) || "intro";
     if (byId[h]) {
-      if (document.querySelector(".view:not([hidden])") == null) show(lastView);
+      if (document.querySelector(".view:not([hidden])") == null) show(viewOf(lastView));
       openDetail(h); syncNav(lastView); return;
     }
     closeDetail();
@@ -1065,8 +1364,10 @@ window.PHOTOS = /*PHOTOS*/;
     // #theme-heritage 처럼 테마 주소로 들어오면 그 테마만 고른 목록을 연다
     if (h.startsWith("theme-") && TH[h.slice(6)]) { view = "list"; lst.themes = new Set([h.slice(6)]); }
     else if (h === "list") lst.themes.clear();
+    else if (h.startsWith("route-") && R.some(r => r.id === h.slice(6))) { view = "routes"; curRoute = h.slice(6); }
+    else if (h === "routes") curRoute = null;
     if (!VIEWS.includes(view)) view = "intro";
-    lastView = view;
+    lastView = view === "routes" ? h : view;
     syncNav(view);
     show(view);
   }
