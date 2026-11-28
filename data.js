@@ -100,7 +100,7 @@ window.PLACES = [
   {"id": "s18", "name": "한국과학기술원 (KAIST)", "alt": null, "theme": "science", "themes": [], "gu": "유성구", "addr": "유성구 대학로 291 (구성동)", "lat": 36.37214, "lng": 127.36039, "note": "캠퍼스 상시 개방; 오리연못 거위 서식 및 봄철 벚꽃 명소", "source": "대전 과학·전시 명소 목록", "desc": "한국과학기술원 (KAIST) / 과학기술 특성화 연구중심대학 캠퍼스\n대덕연구개발특구를 대표하는 국내 최고 수준의 과학기술 연구중심대학입니다. 캠퍼스 내 명소인 '오리연못'에는 이름과 달리 거위가 서식하고 있어 방문객들에게 색다른 볼거리를 제공하며, 봄철이 되면 캠퍼스 전역에 화사한 벚꽃이 만개하여 산책하기에도 아름답습니다.", "credit": "Roost, CC0, 위키미디어 공용", "creditUrl": "https://commons.wikimedia.org/wiki/File:A_flock_of_geese_at_KAIST_university.jpg", "credit2": "AhmadElq, CC BY-SA 4.0, 위키미디어 공용", "creditUrl2": "https://commons.wikimedia.org/wiki/File:KAIST%27s_campus_road.jpg"}
 ];
 
-// 도보 코스. stops 순서가 걷는 순서. 거리 · 시간은 화면에서 좌표로 계산한다.
+// 여행 코스. stops 순서가 방문 순서. 거리 · 시간은 화면에서 좌표로 계산한다.
 // dist(km) · time · mode 를 적으면 화면에서 좌표 계산 대신 그 값을 보여 준다.
 // 예: { id: "wondo", name: "원도심 골목 산책", area: "동구 · 중구", themes: ["street"], stops: ["h03", "h02"], note: "코스 설명" }
 window.ROUTES = [

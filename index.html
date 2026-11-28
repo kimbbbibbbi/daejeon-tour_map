@@ -1099,7 +1099,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   <div class="topbar-main">
     <a class="brand" href="#intro">대전관광여지도</a>
     <nav class="menu" aria-label="주 메뉴">
-      <a href="#intro" data-nav="intro">홈</a><a href="#map" data-nav="map">지도</a><a href="#list" data-nav="list">명소 목록</a><a href="#routes" data-nav="routes">도보 코스</a><a href="#about" data-nav="about">소개</a>
+      <a href="#intro" data-nav="intro">홈</a><a href="#map" data-nav="map">지도</a><a href="#list" data-nav="list">명소 목록</a><a href="#routes" data-nav="routes">여행 코스</a><a href="#about" data-nav="about">소개</a>
     </nav>
     <label class="search">
       <input id="q" type="search" placeholder="명소 검색" autocomplete="off" aria-label="명소 이름, 주소 검색">
@@ -1115,10 +1115,10 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
     <div>
       <p class="eyebrow">DAEJEON TOUR ATLAS</p>
       <h1>대전 관광명소를<br>테마별로 한눈에</h1>
-      <p class="lede">문화유산부터 야경 명소까지, 보고 싶은 테마만 골라 지도에 띄워 보세요. 가까운 명소끼리 걸어서 잇는 도보 코스로 하루 나들이 동선도 바로 짤 수 있습니다.</p>
+      <p class="lede">문화유산부터 야경 명소까지, 보고 싶은 테마만 골라 지도에 띄워 보세요. 권역 · 테마 · 계절별 추천 여행 코스로 하루 나들이 동선도 바로 짤 수 있습니다.</p>
       <div class="cta">
         <a class="btn primary" href="#map">지도 열기 →</a>
-        <a class="btn" href="#routes">도보 코스 보기</a>
+        <a class="btn" href="#routes">여행 코스 보기</a>
         <a class="btn" href="#list">명소 목록</a>
       </div>
     </div>
@@ -1159,8 +1159,8 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
         <div class="vis" aria-hidden="true">
           <svg class="route-mini" viewBox="0 0 150 56"><path d="M18 40 L60 18 L100 34 L134 14" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/><g font-family="Jost, sans-serif" font-size="11" text-anchor="middle"><circle cx="18" cy="40" r="10"/><text x="18" y="44" fill="#fff">1</text><circle cx="60" cy="18" r="10"/><text x="60" y="22" fill="#fff">2</text><circle cx="100" cy="34" r="10"/><text x="100" y="38" fill="#fff">3</text><circle cx="134" cy="14" r="10"/><text x="134" y="18" fill="#fff">4</text></g></svg>
         </div>
-        <h3>따라 걷기</h3>
-        <p>도보 코스 화면에서 코스를 고르면, 들를 곳이 번호 순서대로 지도 위 경로로 이어져 나타나요.</p>
+        <h3>코스 따라가기</h3>
+        <p>여행 코스 화면에서 코스를 고르면, 들를 곳이 번호 순서대로 지도 위 경로로 이어져 나타나요.</p>
         <a class="u" href="#routes">코스 보기</a>
       </li>
     </ol>
@@ -1180,12 +1180,12 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
   </aside>
 </section>
 
-<!-- ===== 4. 도보 코스 ===== -->
+<!-- ===== 4. 여행 코스 ===== -->
 <section class="view mapview" id="view-routes" hidden>
-  <div class="map" id="map-route" role="region" aria-label="도보 코스 지도"></div>
-  <aside class="panel" id="panel-route" aria-label="도보 코스">
+  <div class="map" id="map-route" role="region" aria-label="여행 코스 지도"></div>
+  <aside class="panel" id="panel-route" aria-label="여행 코스">
     <button type="button" class="sheet-handle" aria-label="코스 펼치기 / 접기"></button>
-    <div class="panel-head"><h2>도보 코스</h2><span class="meta">테마 · 권역별 추천 동선</span></div>
+    <div class="panel-head"><h2>여행 코스</h2><span class="meta">테마 · 권역별 추천 동선</span></div>
     <div class="route-tabs" id="route-tabs"></div>
     <div class="route-info" id="route-info"></div>
     <ol class="stops" id="stops"></ol>
@@ -1222,11 +1222,11 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
     <h1 class="page-title">소개</h1>
     <div class="prose" style="margin-top:16px">
       <p>대전관광여지도는 대전의 관광명소를 문화유산, 건축문화유산, 자연·공원, 과학·전시, 야경·전망의 다섯 가지 테마로 나누어, 보고 싶은 테마만 골라 지도에서 바로 확인할 수 있게 만든 사이트입니다.</p>
-      <p>동구 · 중구 · 서구 · 유성구 · 대덕구 다섯 권역별로 명소를 모아 보여 주고, 가까운 명소끼리 걸어서 이어지는 도보 코스를 지도 위 경로로 제안합니다. 따로 검색하지 않아도 하루 나들이 동선을 쉽게 짤 수 있도록 하는 것이 목표입니다.</p>
+      <p>동구 · 중구 · 서구 · 유성구 · 대덕구 다섯 권역별로 명소를 모아 보여 주고, 권역별 · 테마별 · 계절별로 명소를 엮은 여행 코스를 지도 위 경로로 제안합니다. 따로 검색하지 않아도 하루 나들이 동선을 쉽게 짤 수 있도록 하는 것이 목표입니다.</p>
     </div>
     <div class="cols">
-      <div><h2>이런 분께</h2><ul><li>대전을 처음 찾는 여행자</li><li>주말 나들이 장소를 찾는 대전 시민</li><li>걸어서 여행하는 뚜벅이 여행자</li></ul></div>
-      <div><h2>할 수 있는 것</h2><ul><li>여러 테마를 동시에 켜고 끄며 지도 보기</li><li>테마 · 권역(구)별로 명소 골라 보기</li><li>가까운 명소와 도보 코스 확인</li></ul></div>
+      <div><h2>이런 분께</h2><ul><li>대전을 처음 찾는 여행자</li><li>주말 나들이 장소를 찾는 대전 시민</li><li>하루 코스를 짜고 싶은 당일치기 여행자</li></ul></div>
+      <div><h2>할 수 있는 것</h2><ul><li>여러 테마를 동시에 켜고 끄며 지도 보기</li><li>테마 · 권역(구)별로 명소 골라 보기</li><li>가까운 명소와 추천 여행 코스 확인</li></ul></div>
       <div><h2>만드는 원칙</h2><ul><li>맛집 · 숙박은 빼고 관광명소만</li><li>회원 기능 없이 누구나 바로 검색</li><li>공공데이터 · 공공누리 자료와 출처 표시</li></ul></div>
     </div>
     <h2 class="page-title" style="font-size:20px">한눈에 보기</h2>
@@ -1241,7 +1241,7 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
       <div><b>거리 · 골목 · 체험 · 여가</b><span>추후 업데이트 예정</span></div>
       <div><b>사진</b><span>위키미디어 공용(Wikimedia Commons)의 자유 라이선스 사진(CC BY · CC BY-SA · CC0 · 퍼블릭 도메인)을 크기만 줄여 사용합니다. 작가와 라이선스는 명소마다 사진 아래에 표시하고 원본 페이지로 연결합니다. 한국관광공사 TourAPI(한국관광콘텐츠랩)의 공공누리 제1 · 3유형 사진도 사용합니다. 제3유형(변경금지) 사진은 자르기 · 보정 없이 크기만 줄이고 사진 속 표기도 그대로 둡니다. 일부 사진은 대전광역시 공식 블로그의 CC BY-NC-ND 2.0 KR(저작자 표시 · 비영리 · 변경 금지) 사진을 원본 그대로 사용합니다.</span></div>
       <div><b>명소 좌표 · 하천</b><span>© OpenStreetMap contributors (ODbL). 일부는 근사 좌표로 현장 확인 예정</span></div>
-      <div><b>도보 코스</b><span>명소 사이 직선거리로 계산한 추정치. 직접 답사로 확인 예정</span></div>
+      <div><b>여행 코스</b><span>권역 · 테마 · 계절별 추천 동선. 거리 · 소요 시간은 추정치이며 직접 답사로 확인 예정</span></div>
       <div><b>행정구역 경계</b><span>통계청 2013 행정구역 경계, southkorea-maps 가공본</span></div>
       <div><b>배경 지도</b><span>OpenFreeMap © OpenMapTiles, Data from OpenStreetMap</span></div>
       <div><b>지도 라이브러리</b><span>Leaflet, Leaflet.markercluster, MapLibre GL</span></div>
@@ -1360,7 +1360,7 @@ window.PLACES = [
   {"id": "s18", "name": "한국과학기술원 (KAIST)", "alt": null, "theme": "science", "themes": [], "gu": "유성구", "addr": "유성구 대학로 291 (구성동)", "lat": 36.37214, "lng": 127.36039, "note": "캠퍼스 상시 개방; 오리연못 거위 서식 및 봄철 벚꽃 명소", "source": "대전 과학·전시 명소 목록", "desc": "한국과학기술원 (KAIST) / 과학기술 특성화 연구중심대학 캠퍼스\n대덕연구개발특구를 대표하는 국내 최고 수준의 과학기술 연구중심대학입니다. 캠퍼스 내 명소인 '오리연못'에는 이름과 달리 거위가 서식하고 있어 방문객들에게 색다른 볼거리를 제공하며, 봄철이 되면 캠퍼스 전역에 화사한 벚꽃이 만개하여 산책하기에도 아름답습니다.", "credit": "Roost, CC0, 위키미디어 공용", "creditUrl": "https://commons.wikimedia.org/wiki/File:A_flock_of_geese_at_KAIST_university.jpg", "credit2": "AhmadElq, CC BY-SA 4.0, 위키미디어 공용", "creditUrl2": "https://commons.wikimedia.org/wiki/File:KAIST%27s_campus_road.jpg"}
 ];
 
-// 도보 코스. stops 순서가 걷는 순서. 거리 · 시간은 화면에서 좌표로 계산한다.
+// 여행 코스. stops 순서가 방문 순서. 거리 · 시간은 화면에서 좌표로 계산한다.
 // dist(km) · time · mode 를 적으면 화면에서 좌표 계산 대신 그 값을 보여 준다.
 // 예: { id: "wondo", name: "원도심 골목 산책", area: "동구 · 중구", themes: ["street"], stops: ["h03", "h02"], note: "코스 설명" }
 window.ROUTES = [
@@ -1659,7 +1659,7 @@ window.PHOTOS = {"photos/architecture/a01-2": "photos/architecture/a01-2.jpg", "
     [B.length, "전체 관광명소", ""],
     ...T.filter(t => themeCount(t.key)).map(t => [themeCount(t.key), t.name, t.color]),
     [new Set(B.map(b => b.gu)).size, "자치구", ""],
-    ...(R.length ? [[R.length, "도보 코스", ""]] : [])
+    ...(R.length ? [[R.length, "여행 코스", ""]] : [])
   ].map(([n, label, c]) => `<div><b${c ? ` style="color:${c}"` : ""}>${n}</b><span>${esc(label)}</span></div>`).join("");
   document.getElementById("sample-note").textContent = T.filter(t => themeCount(t.key)).map(t => `${t.name} ${themeCount(t.key)}곳`).join(" · ") + (T.some(t => !themeCount(t.key)) ? " · 다른 테마는 준비 중" : "");
   function renderIntro() {
@@ -1719,7 +1719,7 @@ window.PHOTOS = {"photos/architecture/a01-2": "photos/architecture/a01-2.jpg", "
   // ---------- 3. 상세 창 ----------
   const detailEl = document.getElementById("detail");
   let detailMap, lastView = "map";
-  const BACK = { intro: "홈", map: "지도", list: "명소 목록", routes: "도보 코스", about: "소개" };
+  const BACK = { intro: "홈", map: "지도", list: "명소 목록", routes: "여행 코스", about: "소개" };
   function openDetail(id) {
     const b = byId[id], i = B.indexOf(b);
     const prev = B[(i - 1 + B.length) % B.length], next = B[(i + 1) % B.length];
@@ -1759,7 +1759,7 @@ window.PHOTOS = {"photos/architecture/a01-2": "photos/architecture/a01-2.jpg", "
             ${b.designation ? `<dt>지정종목</dt><dd>${esc(b.designation)}</dd>` : ""}
             ${[["등급", b.grade], ["고유번호", b.code], ["건립", b.year], ["용도", b.use], ["구조", b.structure]].filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}
             ${b.note ? `<dt>비고</dt><dd>${esc(b.note)}</dd>` : ""}
-            ${routes.length ? `<dt>도보 코스</dt><dd>${routes.map(r => esc(r.name)).join(", ")}</dd>` : ""}
+            ${routes.length ? `<dt>여행 코스</dt><dd>${routes.map(r => esc(r.name)).join(", ")}</dd>` : ""}
           </dl>
         </div>
         <h2 class="d-sub">가까운 명소</h2>
@@ -1793,14 +1793,14 @@ window.PHOTOS = {"photos/architecture/a01-2": "photos/architecture/a01-2.jpg", "
   addEventListener("keydown", e => { if (e.key === "Escape" && !detailEl.hidden) location.hash = lastView; });
   let pendingFocus = null;
 
-  // ---------- 4. 도보 코스 ----------
+  // ---------- 4. 여행 코스 ----------
   let routeMap, routeLayer, curRoute = R[0]?.id;
   function renderRoute() {
     if (!routeMap) routeMap = baseMap("map-route");
     if (!R.length) {
       // 아직 코스가 없으면 안내만 띄우고 지도는 전체 명소에 맞춘다
       document.getElementById("route-tabs").innerHTML = "";
-      document.getElementById("route-info").innerHTML = `<span>도보 코스를 준비하고 있습니다.</span><span class="small">테마별 명소가 모이면 가까운 곳끼리 걸어서 잇는 코스를 올릴 예정입니다. 지금은 <a class="u" href="#map">지도</a>에서 명소를 둘러보세요.</span>`;
+      document.getElementById("route-info").innerHTML = `<span>여행 코스를 준비하고 있습니다.</span><span class="small">테마별 명소가 모이면 추천 여행 코스를 올릴 예정입니다. 지금은 <a class="u" href="#map">지도</a>에서 명소를 둘러보세요.</span>`;
       document.getElementById("stops").innerHTML = "";
       refreshMap(routeMap); [150, 800].forEach(t => setTimeout(() => refreshMap(routeMap), t));
       if (!routeLayer) routeLayer = L.featureGroup(B.map(b => L.marker([b.lat, b.lng], { icon: pinIcon(b), title: b.name }).bindTooltip(cardHtml(b), { direction: "right", className: "hovercard", opacity: 1 }).bindPopup(popupHtml(b), { maxWidth: 320 }))).addTo(routeMap);
