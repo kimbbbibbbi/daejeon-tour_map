@@ -1008,9 +1008,9 @@ window.PHOTOS = /*PHOTOS*/;
     const legs = stops.slice(1).map((b, k) => dist(stops[k], b)), total = legs.reduce((a, m) => a + m, 0);
     const mins = legs.reduce((a, m) => a + walkMin(m), 0);
     document.getElementById("route-tabs").innerHTML = R.map(x => `<button type="button" class="chip" data-r="${x.id}" aria-pressed="${x.id === r.id}">${esc(x.name)}</button>`).join("");
-    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><span class="tags" style="margin:0">${r.themes.map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("")}</span><span>${esc(r.note)}</span><span class="stats"><span>${stops.length}곳</span><span>약 ${fmtDist(total * 1.3)}</span><span>걸어서 약 ${fmtMin(mins)}</span><span>관람 시간 제외</span></span>`;
+    document.getElementById("route-info").innerHTML = `<span class="small">${esc(r.area)}</span><span class="tags" style="margin:0">${r.themes.map(k => `<span class="ttag" style="--c:${TH[k].color}">${esc(TH[k].name)}</span>`).join("")}</span><span>${esc(r.note)}</span><span class="stats"><span>${stops.length}곳</span>${r.dist ? `<span>약 ${r.dist}km</span><span>${esc(r.mode || "")}</span><span>${esc(r.time || "")}</span>` : `<span>약 ${fmtDist(total * 1.3)}</span><span>걸어서 약 ${fmtMin(mins)}</span><span>관람 시간 제외</span>`}</span>`;
     document.getElementById("stops").innerHTML = stops.map((b, k) => `
-      <li data-id="${b.id}"><span class="npin">${k + 1}</span><div style="min-width:0"><h3>${esc(b.name)}</h3><div class="addr">${esc(tname(b))} · ${esc(b.addr)}${k < legs.length ? ` · 다음까지 약 ${fmtMin(walkMin(legs[k]))}` : ""}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
+      <li data-id="${b.id}"><span class="npin">${k + 1}</span><div style="min-width:0"><h3>${esc(b.name)}</h3><div class="addr">${esc(tname(b))} · ${esc(b.addr)}${!r.dist && k < legs.length ? ` · 다음까지 약 ${fmtMin(walkMin(legs[k]))}` : ""}</div><a class="u small" href="#${b.id}">상세보기</a></div></li>`).join("");
     if (routeLayer) routeMap.removeLayer(routeLayer);
     const pts = stops.map(b => [b.lat, b.lng]);
     routeLayer = L.featureGroup([
