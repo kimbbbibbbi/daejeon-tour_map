@@ -1194,9 +1194,10 @@ dl.facts dt { font-weight: 500; color: var(--ink-3); }
 .rscroll { overflow-y: auto; flex: 1; min-height: 0; overscroll-behavior: contain; }
 .rscroll .stops { overflow: visible; flex: none; }
 .rfilters { padding: 12px 18px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
-.rrow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.rrow .lbl { font-size: 12px; font-weight: 500; color: var(--ink-3); width: 56px; flex: none; }
-.rrow .chip { font-size: 13px; padding: 4px 11px; }
+.rrow { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.rrow .lbl { font-size: 12px; font-weight: 500; color: var(--ink-3); width: 50px; flex: none; }
+.rrow .chip { font-size: 13px; padding: 4px 8px; white-space: nowrap; }
+.rrow .chip small { margin-left: 3px; }
 .chip small { font-size: 11px; opacity: 0.7; margin-left: 4px; font-variant-numeric: tabular-nums; }
 .rnow { padding: 12px 18px 14px; background: color-mix(in srgb, var(--black) 6%, var(--soft)); border-bottom: 1px solid var(--line); }
 .rnow h3 { margin: 0; font-size: 14px; font-weight: 700; display: flex; gap: 8px; align-items: baseline; }
