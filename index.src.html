@@ -955,7 +955,6 @@ window.PHOTOS = /*PHOTOS*/;
             ${b.designation ? `<dt>지정종목</dt><dd>${esc(b.designation)}</dd>` : ""}
             ${[["등급", b.grade], ["고유번호", b.code], ["건립", b.year], ["용도", b.use], ["구조", b.structure]].filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}
             ${b.note ? `<dt>비고</dt><dd>${esc(b.note)}</dd>` : ""}
-            <dt>좌표</dt><dd>${b.lat.toFixed(5)}, ${b.lng.toFixed(5)}${b.approx ? " (근사값)" : ""}</dd>
             ${routes.length ? `<dt>도보 코스</dt><dd>${routes.map(r => esc(r.name)).join(", ")}</dd>` : ""}
           </dl>
         </div>
